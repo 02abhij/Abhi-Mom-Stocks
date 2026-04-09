@@ -3,11 +3,11 @@
 #  Fill in your details below, then run: python scheduler.py
 # ═══════════════════════════════════════════════════════════════
 
-# ── Email settings ───────────────────────────────────────────────
-EMAIL_SENDER     = "your_gmail@gmail.com"       # Gmail you'll send FROM
-EMAIL_PASSWORD   = "your_app_password_here"     # Gmail App Password (not login password)
-                                                # Get it at: myaccount.google.com/apppasswords
-EMAIL_RECIPIENT  = "your_email@gmail.com"       # Where to receive the daily report
+# ── Email settings (read from environment / GitHub Secrets) ──────
+import os
+EMAIL_SENDER     = os.environ.get("EMAIL_SENDER", "02abhij@gmail.com")
+EMAIL_PASSWORD   = os.environ.get("EMAIL_PASSWORD", "")
+EMAIL_RECIPIENT  = os.environ.get("EMAIL_RECIPIENT", "abhi@ajassoc.in")
 
 SMTP_HOST        = "smtp.gmail.com"
 SMTP_PORT        = 587
