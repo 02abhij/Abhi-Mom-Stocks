@@ -381,7 +381,7 @@ def build_excel(tagged_winners, fundamentals, var_analysis, sector_rot, yr_stats
     set_col_widths(ws4, [8,7,14,28,28,14,8,9,8,14,14,12,16,11,14])
     ws4.freeze_panes = 'A2'
 
-    path = "/home/claude/indian_market_analysis.xlsx"
+    path = "indian_market_analysis.xlsx"
     wb.save(path)
     log.info(f"Excel saved: {path}")
     return path
