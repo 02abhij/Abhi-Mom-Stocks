@@ -1,0 +1,35 @@
+name: Indian Market Return Analysis
+
+on:
+  workflow_dispatch:  # Manual trigger only — run once
+
+jobs:
+  analyse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120  # Price downloads take time for 1600+ stocks
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install yfinance pandas numpy openpyxl requests
+
+      - name: Run analysis
+        env:
+          EMAIL_SENDER: "02abhij@gmail.com"
+          EMAIL_RECIPIENT: "abhi@ajassoc.in"
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        run: python indian_market_analysis.py
+
+      - name: Upload Excel as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: indian-market-analysis
+          path: indian_market_analysis.xlsx
+          retention-days: 30
