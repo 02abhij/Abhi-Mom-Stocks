@@ -1,0 +1,30 @@
+name: Daily Momentum Scanner
+
+on:
+  schedule:
+    # Runs at 10:45 UTC = 4:15 PM IST, Monday to Friday
+    - cron: '45 10 * * 1-5'
+  workflow_dispatch:  # Allows manual trigger from GitHub website
+
+jobs:
+  run-scanner:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run momentum scanner
+        env:
+          EMAIL_SENDER: "02abhij@gmail.com"
+          EMAIL_RECIPIENT: "abhi@ajassoc.in"
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+        run: python scheduler.py --now
