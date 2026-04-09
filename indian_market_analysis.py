@@ -199,7 +199,9 @@ def analyze_variables(tagged_winners: pd.DataFrame,
             'Winner Premium %': round(premium, 1) if pd.notna(premium) else 'N/A',
             'Winner Count': len(winner_vals),
         })
-    return pd.DataFrame(results).sort_values('Winner Premium %', ascending=False)
+    result_df = pd.DataFrame(results)
+    result_df['Winner Premium %'] = pd.to_numeric(result_df['Winner Premium %'], errors='coerce')
+    return result_df.sort_values('Winner Premium %', ascending=False)
 
 
 def sector_rotation(tagged_winners: pd.DataFrame) -> pd.DataFrame:
