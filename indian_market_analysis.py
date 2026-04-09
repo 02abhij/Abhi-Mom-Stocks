@@ -54,7 +54,8 @@ FUNDAMENTALS_CSV = "screener_fundamentals.csv"
 
 def load_fundamentals() -> pd.DataFrame:
     df = pd.read_csv(FUNDAMENTALS_CSV)
-    df['ticker'] = df['NSE Code'].str.strip() + '.NS'
+    df = df[df['NSE Code'].notna() & (df['NSE Code'].astype(str).str.strip() != '')]
+    df['ticker'] = df['NSE Code'].astype(str).str.strip() + '.NS'
     log.info(f"Loaded {len(df)} stocks from Screener")
     return df
 
