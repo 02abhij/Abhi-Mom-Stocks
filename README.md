@@ -9,7 +9,7 @@ Screens stocks from a Screener.in CSV export against sustained growth filters.
 - 5Y Revenue CAGR > 15%
 - 3Y PAT CAGR > 20%
 - 3Y Revenue CAGR > 15%
-- Current PE < 30x
+- Current PE < 45x
 - D/E < 0.75x
 - ROE > 10%
 
