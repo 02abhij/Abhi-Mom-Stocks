@@ -8,7 +8,7 @@ Filters stocks from Screener.in CSV export against:
   - 5Y  Rev CAGR  > 15%
   - 3Y  PAT CAGR  > 20%
   - 3Y  Rev CAGR  > 15%
-  - Current PE    < 30x
+  - Current PE    < 45x
   - D/E           < 0.75x
   - ROE           > 10%
 
@@ -58,7 +58,7 @@ FILTERS = {
     "Sales growth 5Years":   (">", 15),
     "Profit growth 3Years":  (">", 20),
     "Sales growth 3Years":   (">", 15),
-    "Price to Earning":      ("<", 30),
+    "Price to Earning":      ("<", 45),
     "Debt to equity":        ("<", 0.75),
     "Return on equity":      (">", 10),
 }
