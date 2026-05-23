@@ -1,0 +1,33 @@
+name: Score QA Fluency
+
+on:
+  workflow_dispatch:   # run manually from GitHub Actions tab
+
+jobs:
+  score:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install anthropic scipy numpy
+
+      - name: Run scorer
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cd concall_analysis
+          python score_qa_pairs.py
+
+      - name: Commit scored results
+        run: |
+          git config user.email "actions@github.com"
+          git config user.name "GitHub Actions"
+          git add concall_analysis/*_scored.json
+          git diff --staged --quiet || git commit -m "Add QA fluency scores"
+          git push
