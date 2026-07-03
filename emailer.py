@@ -38,6 +38,20 @@ def _index_badge(index_name: str) -> str:
     )
 
 
+def _ret_color(val: str) -> str:
+    """Green for positive, red for negative return strings."""
+    return "#dc2626" if str(val).startswith("-") else "#16a34a"
+
+
+def _col(row, name, default="N/A"):
+    """Safe column access — tolerates older scanner output missing new columns."""
+    try:
+        v = row[name]
+        return default if pd.isna(v) else v
+    except (KeyError, TypeError):
+        return default
+
+
 def build_html(df: pd.DataFrame, run_date: str) -> str:
     top = df.head(config.TOP_N).copy()
 
@@ -45,6 +59,14 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
     for rank, row in top.iterrows():
         bg = "#f9fafb" if rank % 2 == 0 else "#ffffff"
         ticker_clean = row["ticker"].replace(".NS", "")
+
+        ret_2w = _col(row, "return_2w")
+        ret_1m = _col(row, "return_1m")
+        ret_3m = _col(row, "return_3m")
+        ret_6m = _col(row, "return_6m")
+        p20    = _col(row, "pct_from_20d_high")
+        vsurge = _col(row, "vol_surge")
+
         rows_html += f"""
         <tr style="background:{bg};">
           <td style="padding:10px 8px;font-weight:700;color:#6b7280;text-align:center;">{rank}</td>
@@ -57,12 +79,15 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
             <span style="font-weight:700;font-size:15px;color:#1d4ed8;">{row['momentum_score']}</span><br>
             {_signal_bar(row['momentum_score'])}
           </td>
-          <td style="padding:10px 8px;text-align:center;color:{'#16a34a' if row['return_1m'].startswith('-') == False else '#dc2626'};font-weight:600;">{row['return_1m']}</td>
-          <td style="padding:10px 8px;text-align:center;color:{'#16a34a' if row['return_3m'].startswith('-') == False else '#dc2626'};font-weight:600;">{row['return_3m']}</td>
-          <td style="padding:10px 8px;text-align:center;color:{'#16a34a' if row['return_6m'].startswith('-') == False else '#dc2626'};font-weight:600;">{row['return_6m']}</td>
-          <td style="padding:10px 8px;text-align:center;">{row['pct_from_52w']}</td>
-          <td style="padding:10px 8px;text-align:center;">{row['rsi']}</td>
-          <td style="padding:10px 8px;text-align:center;">{row['vol_ratio']}</td>
+          <td style="padding:10px 8px;text-align:center;color:{_ret_color(ret_2w)};font-weight:700;">{ret_2w}</td>
+          <td style="padding:10px 8px;text-align:center;color:{_ret_color(ret_1m)};font-weight:600;">{ret_1m}</td>
+          <td style="padding:10px 8px;text-align:center;color:{_ret_color(ret_3m)};font-weight:600;">{ret_3m}</td>
+          <td style="padding:10px 8px;text-align:center;color:{_ret_color(ret_6m)};font-weight:600;">{ret_6m}</td>
+          <td style="padding:10px 8px;text-align:center;font-weight:600;">{p20}</td>
+          <td style="padding:10px 8px;text-align:center;">{_col(row, 'pct_from_52w')}</td>
+          <td style="padding:10px 8px;text-align:center;font-weight:600;">{vsurge}</td>
+          <td style="padding:10px 8px;text-align:center;">{_col(row, 'rsi')}</td>
+          <td style="padding:10px 8px;text-align:center;">{_col(row, 'vol_ratio')}</td>
         </tr>"""
 
     index_counts = df.head(config.TOP_N)["index"].value_counts().to_dict()
@@ -77,7 +102,7 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
 <head><meta charset="UTF-8"></head>
 <body style="margin:0;padding:0;background:#f3f4f6;font-family:Arial,sans-serif;">
 
-<div style="max-width:900px;margin:30px auto;background:#ffffff;border-radius:12px;
+<div style="max-width:1050px;margin:30px auto;background:#ffffff;border-radius:12px;
             box-shadow:0 2px 12px rgba(0,0,0,0.08);overflow:hidden;">
 
   <!-- Header -->
@@ -103,7 +128,9 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
     🟡 45–69 Building &nbsp;|&nbsp;
     🔴 0–44 Weak
     &nbsp;&nbsp;·&nbsp;&nbsp;
-    <b>Vol Ratio:</b> 20d avg vol ÷ 60d avg vol (>1.2x = accelerating)
+    <b>vs 20D Hi:</b> 100% = at/breaking 20-day high (active breakout)
+    &nbsp;&nbsp;·&nbsp;&nbsp;
+    <b>Vol Surge:</b> today's volume ÷ 20d avg (>2x = breakout confirmation)
   </div>
 
   <!-- Table -->
@@ -115,10 +142,13 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
           <th style="padding:12px 8px;text-align:left;color:#6b7280;font-size:12px;">STOCK</th>
           <th style="padding:12px 8px;text-align:left;color:#6b7280;font-size:12px;">PRICE</th>
           <th style="padding:12px 8px;text-align:center;color:#6b7280;font-size:12px;">SCORE</th>
+          <th style="padding:12px 8px;text-align:center;color:#6b7280;font-size:12px;">2W</th>
           <th style="padding:12px 8px;text-align:center;color:#6b7280;font-size:12px;">1M</th>
           <th style="padding:12px 8px;text-align:center;color:#6b7280;font-size:12px;">3M</th>
           <th style="padding:12px 8px;text-align:center;color:#6b7280;font-size:12px;">6M</th>
+          <th style="padding:12px 8px;text-align:center;color:#6b7280;font-size:12px;">vs 20D Hi</th>
           <th style="padding:12px 8px;text-align:center;color:#6b7280;font-size:12px;">vs 52W Hi</th>
+          <th style="padding:12px 8px;text-align:center;color:#6b7280;font-size:12px;">VOL SURGE</th>
           <th style="padding:12px 8px;text-align:center;color:#6b7280;font-size:12px;">RSI</th>
           <th style="padding:12px 8px;text-align:center;color:#6b7280;font-size:12px;">VOL RATIO</th>
         </tr>
@@ -130,9 +160,10 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
   <!-- Footer -->
   <div style="padding:16px 32px;background:#f9fafb;border-top:1px solid #e5e7eb;
               font-size:11px;color:#9ca3af;line-height:1.6;">
-    <b>Methodology:</b> Composite score = weighted percentile rank across 7 signals
-    (1M/3M/6M returns, 52W high proximity, RSI-14 sweet zone 55–75, OBV slope, volume acceleration).
-    All scores are cross-sectional — relative to today's universe, not absolute thresholds.<br>
+    <b>Methodology:</b> Composite score = weighted percentile rank across 10 signals
+    (2W/1M/3M/6M returns, 20D &amp; 52W high proximity, volume surge, RSI-14 sweet zone 55–75,
+    OBV slope, volume acceleration). ~40% of weight on sub-1-month signals to catch fresh
+    breakouts. All scores are cross-sectional — relative to today's universe, not absolute thresholds.<br>
     <b>Not investment advice.</b> Run your own thesis before acting on any name.
   </div>
 
