@@ -3,14 +3,17 @@ scanner.py — Download price/volume history and compute momentum scores.
 
 Momentum score components (weights defined in config.py):
   Price signals:
-    return_1m     — 21-day total return
-    return_3m     — 63-day total return
-    return_6m     — 126-day total return
-    pct_from_52w  — how close price is to 52-week high (0–100%)
-    rsi           — RSI-14, scored highest in 55–75 sweet zone
+    return_2w          — 10-day total return (fresh momentum)
+    return_1m          — 21-day total return
+    return_3m          — 63-day total return
+    return_6m          — 126-day total return
+    pct_from_52w       — how close price is to 52-week high (0–100%)
+    pct_from_20d_high  — how close price is to 20-day high (breakout signal)
+    rsi                — RSI-14, scored highest in 55–75 sweet zone
   Volume signals:
-    obv_slope     — normalised OBV linear regression slope (20 days)
-    vol_ratio     — 20d avg volume ÷ 60d avg volume (acceleration signal)
+    vol_surge          — latest day volume ÷ 20d avg volume (breakout confirmation)
+    obv_slope          — normalised OBV linear regression slope (20 days)
+    vol_ratio          — 20d avg volume ÷ 60d avg volume (acceleration signal)
 
 Each raw signal is cross-sectionally ranked (percentile 0–1) across all
 valid stocks, then weighted and summed → final composite score 0–100.
@@ -92,22 +95,33 @@ def _extract_signals(ticker: str, hist: pd.DataFrame) -> dict | None:
         high_52w = float(close.tail(252).max())
         pct_from_52w = (price / high_52w) * 100 if high_52w > 0 else np.nan
 
+        # Breakout signal: proximity to 20-day high (100% = at/breaking the high)
+        high_20d = float(close.tail(20).max())
+        pct_from_20d_high = (price / high_20d) * 100 if high_20d > 0 else np.nan
+
         obv = _obv(close, volume)
         vol_60 = float(volume.tail(60).mean())
         vol_ratio = (avg_vol_20 / vol_60) if vol_60 > 0 else np.nan
 
+        # Breakout confirmation: latest day's volume vs 20d average
+        last_vol = float(volume.iloc[-1])
+        vol_surge = (last_vol / avg_vol_20) if avg_vol_20 > 0 else np.nan
+
         return {
-            "ticker":       ticker,
-            "price":        round(price, 2),
-            "avg_vol_20d":  int(avg_vol_20),
-            "return_1m":    _pct_return(close, 21),
-            "return_3m":    _pct_return(close, 63),
-            "return_6m":    _pct_return(close, 126),
-            "pct_from_52w": pct_from_52w,
-            "rsi":          _rsi(close),
-            "obv_slope":    _obv_slope(obv),
-            "vol_ratio":    vol_ratio,
-            "52w_high":     round(high_52w, 2),
+            "ticker":            ticker,
+            "price":             round(price, 2),
+            "avg_vol_20d":       int(avg_vol_20),
+            "return_2w":         _pct_return(close, 10),
+            "return_1m":         _pct_return(close, 21),
+            "return_3m":         _pct_return(close, 63),
+            "return_6m":         _pct_return(close, 126),
+            "pct_from_52w":      pct_from_52w,
+            "pct_from_20d_high": pct_from_20d_high,
+            "rsi":               _rsi(close),
+            "obv_slope":         _obv_slope(obv),
+            "vol_ratio":         vol_ratio,
+            "vol_surge":         vol_surge,
+            "52w_high":          round(high_52w, 2),
         }
     except Exception as e:
         log.debug(f"{ticker} signal extraction failed: {e}")
@@ -185,8 +199,9 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
     log.info(f"Valid stocks after quality filters: {len(df)}")
 
     # ── Cross-sectional percentile ranking ────────────────────────────────────
-    signal_cols = ["return_1m", "return_3m", "return_6m", "pct_from_52w",
-                   "obv_slope", "vol_ratio"]
+    signal_cols = ["return_2w", "return_1m", "return_3m", "return_6m",
+                   "pct_from_52w", "pct_from_20d_high",
+                   "obv_slope", "vol_ratio", "vol_surge"]
 
     for col in signal_cols:
         df[col + "_rank"] = df[col].rank(pct=True, na_option="bottom")
@@ -207,25 +222,30 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
     # ── Composite score (0–100) ───────────────────────────────────────────────
     w = config.WEIGHTS
     df["momentum_score"] = (
-        df["return_1m_rank"]    * w["return_1m"]    +
-        df["return_3m_rank"]    * w["return_3m"]    +
-        df["return_6m_rank"]    * w["return_6m"]    +
-        df["pct_from_52w_rank"] * w["pct_from_52w"] +
-        df["rsi_rank"]          * w["rsi"]          +
-        df["obv_slope_rank"]    * w["obv_slope"]    +
-        df["vol_ratio_rank"]    * w["vol_ratio"]
+        df["return_2w_rank"]         * w["return_2w"]         +
+        df["return_1m_rank"]         * w["return_1m"]         +
+        df["return_3m_rank"]         * w["return_3m"]         +
+        df["return_6m_rank"]         * w["return_6m"]         +
+        df["pct_from_52w_rank"]      * w["pct_from_52w"]      +
+        df["pct_from_20d_high_rank"] * w["pct_from_20d_high"] +
+        df["vol_surge_rank"]         * w["vol_surge"]         +
+        df["rsi_rank"]               * w["rsi"]               +
+        df["obv_slope_rank"]         * w["obv_slope"]         +
+        df["vol_ratio_rank"]         * w["vol_ratio"]
     ) * 100
 
     df = df.sort_values("momentum_score", ascending=False).reset_index(drop=True)
     df.index += 1  # rank starts at 1
 
     # Format return columns as %
-    for col in ["return_1m", "return_3m", "return_6m"]:
+    for col in ["return_2w", "return_1m", "return_3m", "return_6m"]:
         df[col] = df[col].map(lambda x: f"{x*100:.1f}%" if pd.notna(x) else "N/A")
 
     df["pct_from_52w"] = df["pct_from_52w"].map(lambda x: f"{x:.1f}%" if pd.notna(x) else "N/A")
+    df["pct_from_20d_high"] = df["pct_from_20d_high"].map(lambda x: f"{x:.1f}%" if pd.notna(x) else "N/A")
     df["rsi"] = df["rsi"].map(lambda x: f"{x:.1f}" if pd.notna(x) else "N/A")
     df["momentum_score"] = df["momentum_score"].round(1)
     df["vol_ratio"] = df["vol_ratio"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
+    df["vol_surge"] = df["vol_surge"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
 
     return df
