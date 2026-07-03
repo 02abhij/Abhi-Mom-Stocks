@@ -17,6 +17,12 @@ Momentum score components (weights defined in config.py):
 
 Each raw signal is cross-sectionally ranked (percentile 0–1) across all
 valid stocks, then weighted and summed → final composite score 0–100.
+
+Additional outputs:
+  turnover_l   — 20d median daily traded value in ₹ lakh (liquidity)
+  extended     — blowoff flag (RSI > EXTENDED_RSI or 3M > EXTENDED_3M);
+                 shown separately in the email, not mixed into main ranking
+  is_new / streak_days / rank_change — from history.py (repo-committed memory)
 """
 
 import yfinance as yf
@@ -27,6 +33,7 @@ from datetime import datetime, timedelta
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import config
+import history
 
 log = logging.getLogger(__name__)
 
@@ -75,10 +82,10 @@ def _pct_return(close: pd.Series, days: int) -> float:
 
 # ── Per-ticker extraction ─────────────────────────────────────────────────────
 
-def _extract_signals(ticker: str, hist: pd.DataFrame) -> dict | None:
+def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
     try:
-        close = hist["Close"].dropna()
-        volume = hist["Volume"].dropna()
+        close = hist_df["Close"].dropna()
+        volume = hist_df["Volume"].dropna()
         close, volume = close.align(volume, join="inner")
 
         if len(close) < config.MIN_HISTORY_DAYS:
@@ -90,6 +97,12 @@ def _extract_signals(ticker: str, hist: pd.DataFrame) -> dict | None:
         if price < config.MIN_PRICE:
             return None
         if avg_vol_20 < config.MIN_AVG_VOLUME:
+            return None
+
+        # Liquidity: 20d MEDIAN daily traded value (median resists one-day spikes)
+        turnover_series = (close.tail(20) * volume.tail(20))
+        turnover_l = float(turnover_series.median()) / 1e5   # ₹ lakh
+        if turnover_l < config.MIN_TURNOVER_LAKH:
             return None
 
         high_52w = float(close.tail(252).max())
@@ -111,6 +124,7 @@ def _extract_signals(ticker: str, hist: pd.DataFrame) -> dict | None:
             "ticker":            ticker,
             "price":             round(price, 2),
             "avg_vol_20d":       int(avg_vol_20),
+            "turnover_l":        turnover_l,
             "return_2w":         _pct_return(close, 10),
             "return_1m":         _pct_return(close, 21),
             "return_3m":         _pct_return(close, 63),
@@ -164,7 +178,8 @@ def _download_batch(tickers: list[str], start: str, end: str) -> dict[str, pd.Da
 def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
     """
     Downloads history for all tickers in batches, scores each,
-    cross-sectionally ranks signals, returns sorted DataFrame.
+    cross-sectionally ranks signals, annotates with history memory,
+    saves today's snapshot, returns sorted DataFrame.
     """
     end_date = datetime.today().strftime("%Y-%m-%d")
     start_date = (datetime.today() - timedelta(days=LOOKBACK_DAYS)).strftime("%Y-%m-%d")
@@ -178,15 +193,15 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
 
     for i, batch in enumerate(batches, 1):
         log.info(f"Downloading batch {i}/{len(batches)} ({len(batch)} tickers)...")
-        hist = _download_batch(batch, start_date, end_date)
-        all_hist.update(hist)
+        hist_batch = _download_batch(batch, start_date, end_date)
+        all_hist.update(hist_batch)
 
     log.info(f"Got data for {len(all_hist)}/{len(tickers)} tickers")
 
     # Extract signals
     records = []
-    for ticker, hist in all_hist.items():
-        signals = _extract_signals(ticker, hist)
+    for ticker, hist_df in all_hist.items():
+        signals = _extract_signals(ticker, hist_df)
         if signals:
             signals["index"] = ticker_meta.get(ticker, "Unknown")
             records.append(signals)
@@ -196,7 +211,7 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
         return pd.DataFrame()
 
     df = pd.DataFrame(records)
-    log.info(f"Valid stocks after quality filters: {len(df)}")
+    log.info(f"Valid stocks after quality/liquidity filters: {len(df)}")
 
     # ── Cross-sectional percentile ranking ────────────────────────────────────
     signal_cols = ["return_2w", "return_1m", "return_3m", "return_6m",
@@ -234,18 +249,37 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
         df["vol_ratio_rank"]         * w["vol_ratio"]
     ) * 100
 
+    # ── Blowoff / extended flag (computed on RAW numerics, before formatting) ─
+    df["extended"] = (
+        (df["rsi"] > config.EXTENDED_RSI) |
+        (df["return_3m"] > config.EXTENDED_3M)
+    )
+
     df = df.sort_values("momentum_score", ascending=False).reset_index(drop=True)
     df.index += 1  # rank starts at 1
+    df["momentum_score"] = df["momentum_score"].round(1)
 
-    # Format return columns as %
+    # ── History memory: annotate + save today's snapshot ─────────────────────
+    try:
+        df = history.annotate(df)
+        history.save_today(df)
+    except Exception as e:
+        log.warning(f"History step failed (non-fatal): {e}")
+        for col, default in [("is_new", False), ("streak_days", 1), ("rank_change", pd.NA)]:
+            if col not in df.columns:
+                df[col] = default
+
+    # ── Display formatting (strings) ──────────────────────────────────────────
     for col in ["return_2w", "return_1m", "return_3m", "return_6m"]:
         df[col] = df[col].map(lambda x: f"{x*100:.1f}%" if pd.notna(x) else "N/A")
 
     df["pct_from_52w"] = df["pct_from_52w"].map(lambda x: f"{x:.1f}%" if pd.notna(x) else "N/A")
     df["pct_from_20d_high"] = df["pct_from_20d_high"].map(lambda x: f"{x:.1f}%" if pd.notna(x) else "N/A")
     df["rsi"] = df["rsi"].map(lambda x: f"{x:.1f}" if pd.notna(x) else "N/A")
-    df["momentum_score"] = df["momentum_score"].round(1)
     df["vol_ratio"] = df["vol_ratio"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
     df["vol_surge"] = df["vol_surge"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
+    df["turnover_l"] = df["turnover_l"].map(
+        lambda x: (f"₹{x/100:.1f}Cr" if x >= 100 else f"₹{x:.0f}L") if pd.notna(x) else "N/A"
+    )
 
     return df
