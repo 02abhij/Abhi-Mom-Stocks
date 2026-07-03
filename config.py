@@ -13,7 +13,7 @@ SMTP_HOST        = "smtp.gmail.com"
 SMTP_PORT        = 587
 
 # ── Scan settings ────────────────────────────────────────────────
-TOP_N            = 30          # Number of top momentum stocks to report
+TOP_N            = 100          # Number of top momentum stocks to report
 RUN_TIME         = "16:15"     # 24h format, IST — when to run daily (post-close)
 
 # ── Momentum score weights (must sum to 1.0) ─────────────────────
