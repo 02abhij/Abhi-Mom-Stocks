@@ -31,14 +31,27 @@ WEIGHTS = {
     "obv_slope":         0.05,   # OBV linear regression slope (normalised)
     "vol_ratio":         0.05,   # 20d avg volume / 60d avg volume
 }
-
 assert abs(sum(WEIGHTS.values()) - 1.0) < 1e-9, "WEIGHTS must sum to 1.0"
 
-# ── Data quality filters ─────────────────────────────────────────
-MIN_PRICE        = 10          # Minimum stock price in ₹ (filter penny stocks)
-MIN_AVG_VOLUME   = 5_000       # Minimum 20-day avg daily volume
-MIN_HISTORY_DAYS = 130         # Minimum trading days of history required
+# ── Data quality / liquidity filters ─────────────────────────────
+MIN_PRICE            = 10      # Minimum stock price in ₹ (filter penny stocks)
+MIN_AVG_VOLUME       = 5_000   # Minimum 20-day avg daily volume (sanity floor)
+MIN_TURNOVER_LAKH    = 50      # Minimum 20d MEDIAN daily traded value, in ₹ lakh
+                               # — hard filter. (₹50L/day ≈ can exit a ₹10L
+                               #  position in ~2 days at 10% volume participation)
+MIN_HISTORY_DAYS     = 130     # Minimum trading days of history required
 
 # ── RSI scoring band ─────────────────────────────────────────────
 RSI_SWEET_LOW    = 55          # RSI below this = losing momentum points
 RSI_SWEET_HIGH   = 75          # RSI above this = overbought penalty kicks in
+
+# ── Blowoff / extended guard ─────────────────────────────────────
+# Names breaching either threshold are pulled out of the main ranking
+# and shown in a separate "Extended" section — momentum is present but
+# 30-60 day persistence odds are poor (mean-reversion profile).
+EXTENDED_RSI     = 85          # RSI-14 above this = extended
+EXTENDED_3M      = 1.50        # 3M return above 150% = extended
+
+# ── History / memory settings ────────────────────────────────────
+HISTORY_FILE      = "history/momentum_history.csv"
+HISTORY_KEEP_DAYS = 180        # Rolling window of daily snapshots kept on file
