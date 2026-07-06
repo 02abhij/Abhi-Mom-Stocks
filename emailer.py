@@ -20,6 +20,8 @@ log = logging.getLogger(__name__)
 
 
 def _signal_bar(score: float, max_score: float = 100) -> str:
+    if score is None or pd.isna(score):
+        return '<span style="color:#9ca3af;font-size:11px;">no score (young)</span>'
     pct = min(int((score / max_score) * 100), 100)
     color = "#22c55e" if pct >= 70 else "#f59e0b" if pct >= 45 else "#ef4444"
     return (
@@ -33,6 +35,7 @@ def _index_badge(index_name: str) -> str:
         "Nifty 500":          ("#dbeafe", "#1d4ed8"),
         "Nifty Microcap 250": ("#fef3c7", "#b45309"),
         "NSE SME Emerge":     ("#f3e8ff", "#7c3aed"),
+        "Watchlist":          ("#dcfce7", "#15803d"),
     }
     bg, fg = colors.get(index_name, ("#f3f4f6", "#374151"))
     return (
@@ -98,7 +101,7 @@ def _row_html(rank, row, extended_style: bool = False) -> str:
       </td>
       <td style="padding:9px 7px;font-weight:600;color:#111827;">₹{row['price']:,.2f}</td>
       <td style="padding:9px 7px;text-align:center;">
-        <span style="font-weight:700;font-size:15px;color:#1d4ed8;">{row['momentum_score']}</span><br>
+        <span style="font-weight:700;font-size:15px;color:#1d4ed8;">{'—' if pd.isna(row['momentum_score']) else row['momentum_score']}</span><br>
         {_signal_bar(row['momentum_score'])}
       </td>
       <td style="padding:9px 7px;text-align:center;color:{_ret_color(ret_2w)};font-weight:700;">{ret_2w}</td>
@@ -169,7 +172,13 @@ def _cluster_panel(top: pd.DataFrame) -> str:
 
 
 def build_html(df: pd.DataFrame, run_date: str) -> str:
-    top = df.head(config.TOP_N).copy()
+    if "young" in df.columns:
+        young_df = df[df["young"] == True]
+        mature = df[df["young"] != True]
+    else:
+        young_df = df.iloc[0:0]
+        mature = df
+    top = mature.head(config.TOP_N).copy()
     cluster_panel = _cluster_panel(top)
 
     has_ext = "extended" in top.columns
@@ -211,6 +220,25 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
     <table style="width:100%;border-collapse:collapse;font-size:12px;">
       <thead>{_THEAD}</thead>
       <tbody>{ext_rows}</tbody>
+    </table>
+  </div>"""
+
+    young_section = ""
+    if len(young_df) > 0:
+        y = young_df.copy()
+        if "return_1m_num" in y.columns:
+            y = y.sort_values("return_1m_num", ascending=False)
+        y = y.head(getattr(config, "YOUNG_MAX_SHOWN", 15))
+        young_rows = "".join(_row_html(rank, row) for rank, row in y.iterrows())
+        young_section = f"""
+  <div style="padding:14px 32px 4px;font-size:13px;font-weight:800;color:#15803d;">
+    🌱 YOUNG LISTINGS — under 130 trading days of history · signals partial, NOT ranked
+    vs main universe · sorted by 1M return · {len(y)} shown of {len(young_df)}
+  </div>
+  <div style="overflow-x:auto;padding:0 16px 24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead>{_THEAD}</thead>
+      <tbody>{young_rows}</tbody>
     </table>
   </div>"""
 
@@ -263,7 +291,7 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
       <tbody>{main_rows}</tbody>
     </table>
   </div>
-{ext_section}
+{ext_section}{young_section}
   <!-- Footer -->
   <div style="padding:16px 32px;background:#f9fafb;border-top:1px solid #e5e7eb;
               font-size:11px;color:#9ca3af;line-height:1.6;">
