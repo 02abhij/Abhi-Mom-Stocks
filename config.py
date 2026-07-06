@@ -25,12 +25,20 @@ WEIGHTS = {
     "return_3m":         0.15,   # 63-day return
     "return_6m":         0.10,   # 126-day return
     "pct_from_52w":      0.10,   # % proximity to 52-week high
-    "pct_from_20d_high": 0.15,   # % proximity to 20-day high — breakout signal
-    "vol_surge":         0.10,   # latest day volume ÷ 20d avg — breakout confirmation
+    "pct_from_20d_high": 0.10,   # % proximity to 20-day high — breakout signal
+    "days_at_high":      0.05,   # closes within 2% of 20d high in last 10 sessions
+                                 #   — breakout HELD, not just touched
+    "vol_persist_10d":   0.10,   # 10d median volume ÷ prior 40d median
+                                 #   — sustained participation (block deals can't fake this)
+    "accum_10d":         0.05,   # up-day volume ÷ down-day volume, last 10 sessions
+                                 #   — direction of the elevated tape
     "rsi":               0.05,   # RSI (14-day), rewarded in 55–75 zone
     "obv_slope":         0.05,   # OBV linear regression slope (normalised)
-    "vol_ratio":         0.05,   # 20d avg volume / 60d avg volume
 }
+# NOTE (Jul 2026): vol_surge (1-day) and vol_ratio removed from scoring after the
+# SUMICHEM false positive — a parent-company catalyst produced a 15.8x one-day
+# print with zero relevance to the listed entity. One-day surges remain DISPLAYED
+# as an event flag but carry zero weight. Persistence signals replaced them.
 assert abs(sum(WEIGHTS.values()) - 1.0) < 1e-9, "WEIGHTS must sum to 1.0"
 
 # ── Data quality / liquidity filters ─────────────────────────────
