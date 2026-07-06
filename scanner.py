@@ -82,7 +82,11 @@ def _pct_return(close: pd.Series, days: int) -> float:
 
 # ── Per-ticker extraction ─────────────────────────────────────────────────────
 
-def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
+def _extract_signals(ticker: str, hist_df: pd.DataFrame, reject_counts: dict | None = None) -> dict | None:
+    def _reject(reason):
+        if reject_counts is not None:
+            reject_counts[reason] = reject_counts.get(reason, 0) + 1
+        return None
     try:
         close = hist_df["Close"].dropna()
         volume = hist_df["Volume"].dropna()
@@ -93,21 +97,21 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
             if len(close) >= getattr(config, "YOUNG_MIN_DAYS", 30):
                 young = True   # compute what the data supports; shown separately
             else:
-                return None
+                return _reject("history<30d")
 
         price = float(close.iloc[-1])
         avg_vol_20 = float(volume.tail(20).mean())
 
         if price < config.MIN_PRICE:
-            return None
+            return _reject("price<min")
         if avg_vol_20 < config.MIN_AVG_VOLUME:
-            return None
+            return _reject("volume<min")
 
         # Liquidity: 20d MEDIAN daily traded value (median resists one-day spikes)
         turnover_series = (close.tail(20) * volume.tail(20))
         turnover_l = float(turnover_series.median()) / 1e5   # ₹ lakh
         if turnover_l < config.MIN_TURNOVER_LAKH:
-            return None
+            return _reject("turnover<50L")
 
         high_52w = float(close.tail(252).max())
         pct_from_52w = (price / high_52w) * 100 if high_52w > 0 else np.nan
@@ -170,7 +174,7 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
         }
     except Exception as e:
         log.debug(f"{ticker} signal extraction failed: {e}")
-        return None
+        return _reject(f"error:{type(e).__name__}")
 
 
 # ── Batch download ────────────────────────────────────────────────────────────
@@ -258,10 +262,12 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
 
     log.info(f"Got data for {len(all_hist)}/{len(tickers)} tickers (incl. -SM recoveries)")
 
-    # Extract signals
+    # Extract signals (with rejection accounting, reported separately for -SM cohort)
     records = []
+    reject_main, reject_sm = {}, {}
     for ticker, hist_df in all_hist.items():
-        signals = _extract_signals(ticker, hist_df)
+        counts = reject_sm if "-SM" in ticker else reject_main
+        signals = _extract_signals(ticker, hist_df, counts)
         if signals:
             meta = ticker_meta.get(ticker, {})
             if isinstance(meta, dict):
