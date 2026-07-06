@@ -101,7 +101,7 @@ def save_today(df: pd.DataFrame) -> None:
     })
     # Log diagnostics for the forward-return backtest (tolerant if absent)
     for col in ("vol_adj_3m", "resid_3m", "return_3m_num",
-                "vol_persist_10d", "accum_10d", "days_at_high"):
+                "vol_persist_10d", "accum_10d", "days_at_high", "young"):
         if col in df.columns:
             snapshot[col] = df[col].values
     hist = pd.concat([hist, snapshot], ignore_index=True)
