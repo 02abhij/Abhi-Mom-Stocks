@@ -60,6 +60,20 @@ RSI_SWEET_HIGH   = 75          # RSI above this = overbought penalty kicks in
 EXTENDED_RSI     = 85          # RSI-14 above this = extended
 EXTENDED_3M      = 1.50        # 3M return above 150% = extended
 
+# ── Watchlist: names outside the index universe (recent listings,
+#    BSE-only names, exchange migrants). .NS = NSE, .BO = BSE, -SM.NS = NSE Emerge
+EXTRA_TICKERS = [
+    "TIMEX.NS",      # NSE-listed Apr 2026, ex BSE-only
+    "INDOSMC.BO",    # BSE, listed May 2026
+    "KISSHT.NS",     # OnEMI Technology, listed May 2026
+]
+
+# ── Young listings (30–129 trading days of history) ─────────────
+# Not discarded anymore: computable short-window signals only, shown in a
+# separate 🌱 section — NOT ranked against the main universe.
+YOUNG_MIN_DAYS   = 30
+YOUNG_MAX_SHOWN  = 15          # cap the young-listings table in the email
+
 # ── History / memory settings ────────────────────────────────────
 HISTORY_FILE      = "history/momentum_history.csv"
 HISTORY_KEEP_DAYS = 180        # Rolling window of daily snapshots kept on file
