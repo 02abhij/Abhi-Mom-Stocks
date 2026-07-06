@@ -120,6 +120,20 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
         last_vol = float(volume.iloc[-1])
         vol_surge = (last_vol / avg_vol_20) if avg_vol_20 > 0 else np.nan
 
+        # Persistence signals (7-15 session evidence, immune to one-day prints):
+        vol_10_med = float(volume.tail(10).median())
+        vol_prior40_med = float(volume.iloc[-50:-10].median()) if len(volume) >= 50 else np.nan
+        vol_persist_10d = (vol_10_med / vol_prior40_med) if (vol_prior40_med and vol_prior40_med > 0) else np.nan
+
+        last10_close = close.tail(11)          # 11 closes -> 10 day-over-day moves
+        last10_vol = volume.tail(10)
+        chg = last10_close.diff().dropna()
+        up_vol = float(last10_vol[chg.values > 0].sum())
+        dn_vol = float(last10_vol[chg.values < 0].sum())
+        accum_10d = (up_vol / dn_vol) if dn_vol > 0 else (10.0 if up_vol > 0 else np.nan)
+
+        days_at_high = int((close.tail(10) >= 0.98 * high_20d).sum())
+
         # Realized 3M volatility and vol-adjusted momentum (Barroso/Santa-Clara spirit):
         # return per unit of same-period volatility. Rewards Schneider-style low-vol
         # trends over lottery-ticket spikes of equal magnitude.
@@ -143,6 +157,9 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
             "obv_slope":         _obv_slope(obv),
             "vol_ratio":         vol_ratio,
             "vol_surge":         vol_surge,
+            "vol_persist_10d":   vol_persist_10d,
+            "accum_10d":         accum_10d,
+            "days_at_high":      days_at_high,
             "vol_adj_3m":        vol_adj_3m,
             "52w_high":          round(high_52w, 2),
         }
@@ -230,8 +247,8 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
 
     # ── Cross-sectional percentile ranking ────────────────────────────────────
     signal_cols = ["return_2w", "return_1m", "return_3m", "return_6m",
-                   "pct_from_52w", "pct_from_20d_high",
-                   "obv_slope", "vol_ratio", "vol_surge"]
+                   "pct_from_52w", "pct_from_20d_high", "days_at_high",
+                   "obv_slope", "vol_persist_10d", "accum_10d"]
 
     for col in signal_cols:
         df[col + "_rank"] = df[col].rank(pct=True, na_option="bottom")
@@ -258,10 +275,11 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
         df["return_6m_rank"]         * w["return_6m"]         +
         df["pct_from_52w_rank"]      * w["pct_from_52w"]      +
         df["pct_from_20d_high_rank"] * w["pct_from_20d_high"] +
-        df["vol_surge_rank"]         * w["vol_surge"]         +
+        df["days_at_high_rank"]      * w["days_at_high"]      +
+        df["vol_persist_10d_rank"]   * w["vol_persist_10d"]   +
+        df["accum_10d_rank"]         * w["accum_10d"]         +
         df["rsi_rank"]               * w["rsi"]               +
-        df["obv_slope_rank"]         * w["obv_slope"]         +
-        df["vol_ratio_rank"]         * w["vol_ratio"]
+        df["obv_slope_rank"]         * w["obv_slope"]
     ) * 100
 
     # ── Residual (sector-relative) momentum ──────────────────────────────────
@@ -305,6 +323,9 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
     df["rsi"] = df["rsi"].map(lambda x: f"{x:.1f}" if pd.notna(x) else "N/A")
     df["vol_ratio"] = df["vol_ratio"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
     df["vol_surge"] = df["vol_surge"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
+    df["vol_persist_10d"] = df["vol_persist_10d"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
+    df["accum_10d"] = df["accum_10d"].map(lambda x: f"{x:.1f}" if pd.notna(x) else "N/A")
+    # days_at_high stays an integer 0-10
     df["vol_adj_3m"] = df["vol_adj_3m"].map(lambda x: f"{x:.1f}" if pd.notna(x) else "N/A")
     df["resid_3m"] = df["resid_3m"].map(
         lambda x: (f"+{x*100:.0f}%" if x >= 0 else f"{x*100:.0f}%") if pd.notna(x) else "—"
