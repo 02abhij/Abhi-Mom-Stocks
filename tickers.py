@@ -2,7 +2,14 @@
 tickers.py — Fetch constituents from:
   1. Nifty 500          (NSE official CSV)
   2. Nifty Microcap 250 (NSE official CSV)
-  3. NSE SME Emerge     (scraped from NSE website)
+  3. Nifty Smallcap 250 / 50 (NSE official CSVs)
+  4. NSE SME Emerge     (scraped from NSE website)
+
+Now also captures the Industry column from NSE index CSVs, used by the
+scanner for residual (sector-relative) momentum.
+
+ticker_meta values are dicts: {"index": <index name>, "industry": <industry>}
+(scanner.py tolerates old-style string values for backward compatibility).
 """
 
 import requests
@@ -30,8 +37,8 @@ NSE_INDEX_URLS = {
 }
 
 
-def _fetch_nse_csv(name: str, url: str) -> list[str]:
-    """Download an NSE index CSV and return list of Yahoo Finance tickers (.NS suffix)."""
+def _fetch_nse_csv(name: str, url: str) -> list[tuple[str, str]]:
+    """Download an NSE index CSV. Returns list of (yahoo_ticker, industry)."""
     try:
         session = requests.Session()
         # NSE requires a cookie — seed it with a homepage visit
@@ -40,14 +47,20 @@ def _fetch_nse_csv(name: str, url: str) -> list[str]:
         r = session.get(url, headers=HEADERS, timeout=15)
         r.raise_for_status()
         df = pd.read_csv(io.StringIO(r.text))
-        # Column is "Symbol" in NSE CSVs
-        col = next((c for c in df.columns if "symbol" in c.lower()), None)
-        if col is None:
+        sym_col = next((c for c in df.columns if "symbol" in c.lower()), None)
+        ind_col = next((c for c in df.columns if "industry" in c.lower()), None)
+        if sym_col is None:
             log.warning(f"{name}: No 'Symbol' column found. Columns: {df.columns.tolist()}")
             return []
-        syms = df[col].dropna().str.strip().tolist()
-        log.info(f"{name}: {len(syms)} tickers fetched")
-        return [s + ".NS" for s in syms]
+        out = []
+        for _, row in df.iterrows():
+            sym = str(row[sym_col]).strip()
+            if not sym or sym.lower() == "nan":
+                continue
+            industry = str(row[ind_col]).strip() if ind_col and pd.notna(row.get(ind_col)) else "Unknown"
+            out.append((sym + ".NS", industry))
+        log.info(f"{name}: {len(out)} tickers fetched")
+        return out
     except Exception as e:
         log.warning(f"{name}: fetch failed — {e}")
         return []
@@ -78,7 +91,6 @@ def _fetch_sme_emerge() -> list[str]:
         r = session.get(urls_to_try[0], headers=HEADERS, timeout=15)
         r.raise_for_status()
         data = r.json()
-        # The JSON contains a list of dicts with "symbol" key
         syms = [item["symbol"].strip() for item in data if "symbol" in item]
         if syms:
             log.info(f"NSE SME Emerge: {len(syms)} tickers fetched (JSON)")
@@ -103,22 +115,22 @@ def _fetch_sme_emerge() -> list[str]:
     return []
 
 
-def get_all_tickers() -> tuple[list[str], dict[str, str]]:
+def get_all_tickers() -> tuple[list[str], dict]:
     """
     Returns:
         tickers     — deduplicated list of Yahoo Finance ticker strings
-        ticker_meta — dict mapping ticker -> index name (for reporting)
+        ticker_meta — dict mapping ticker -> {"index": name, "industry": industry}
     """
-    ticker_meta: dict[str, str] = {}
+    ticker_meta: dict = {}
 
     for name, url in NSE_INDEX_URLS.items():
-        for t in _fetch_nse_csv(name, url):
+        for t, industry in _fetch_nse_csv(name, url):
             if t not in ticker_meta:
-                ticker_meta[t] = name
+                ticker_meta[t] = {"index": name, "industry": industry}
 
     for t in _fetch_sme_emerge():
         if t not in ticker_meta:
-            ticker_meta[t] = "NSE SME Emerge"
+            ticker_meta[t] = {"index": "NSE SME Emerge", "industry": "SME (unclassified)"}
 
     tickers = list(ticker_meta.keys())
     log.info(f"Total unique tickers across all indices: {len(tickers)}")
