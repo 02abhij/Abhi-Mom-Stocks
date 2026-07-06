@@ -282,6 +282,13 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
         log.error("No valid signals extracted. Check data availability.")
         return pd.DataFrame()
 
+    if reject_main:
+        log.info(f"Filter rejections (main universe): {reject_main}")
+    if reject_sm:
+        log.info(f"Filter rejections (-SM recovered cohort): {reject_sm}")
+    sm_passed = sum(1 for r in records if "-SM" in r["ticker"])
+    log.info(f"-SM cohort passed filters: {sm_passed}")
+
     df = pd.DataFrame(records)
     log.info(f"Valid stocks after quality/liquidity filters: {len(df)}")
 
