@@ -107,7 +107,8 @@ def _row_html(rank, row, extended_style: bool = False) -> str:
       <td style="padding:9px 7px;text-align:center;color:{_ret_color(ret_6m)};font-weight:600;">{ret_6m}</td>
       <td style="padding:9px 7px;text-align:center;font-weight:600;">{_col(row, 'pct_from_20d_high')}</td>
       <td style="padding:9px 7px;text-align:center;">{_col(row, 'pct_from_52w')}</td>
-      <td style="padding:9px 7px;text-align:center;font-weight:600;">{_col(row, 'vol_surge')}</td>
+      <td style="padding:9px 7px;text-align:center;font-weight:600;">{_col(row, 'vol_persist_10d')}</td>
+      <td style="padding:9px 7px;text-align:center;font-weight:600;">{_col(row, 'days_at_high')}/10</td>
       <td style="padding:9px 7px;text-align:center;font-weight:600;color:#7c3aed;">{_col(row, 'vol_adj_3m')}</td>
       <td style="padding:9px 7px;text-align:center;color:{_ret_color(str(_col(row, 'resid_3m')))};">{_col(row, 'resid_3m')}</td>
       <td style="padding:9px 7px;text-align:center;">{_col(row, 'rsi')}</td>
@@ -128,7 +129,8 @@ _THEAD = """
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">6M</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">vs 20D Hi</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">vs 52W Hi</th>
-      <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">VOL SURGE</th>
+      <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">VOL 10D</th>
+      <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">HELD</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">VOL-ADJ</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">RESID 3M</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">RSI</th>
@@ -247,7 +249,8 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
               font-size:12px;color:#1d4ed8;line-height:1.7;">
     <b>Δ column:</b> NEW = first day on list · ▲▼ = rank change vs previous run · dN = consecutive days on list
     &nbsp;·&nbsp; <b>vs 20D Hi:</b> 100% = at/breaking 20-day high
-    &nbsp;·&nbsp; <b>Vol Surge:</b> today's volume ÷ 20d avg (&gt;2x = breakout confirmation)
+    &nbsp;·&nbsp; <b>VOL 10D:</b> 10d median volume ÷ prior 40d (&gt;1.5x sustained = accumulation)
+    &nbsp;·&nbsp; <b>HELD:</b> closes within 2% of 20d high, last 10 sessions (8+/10 = held breakout)
     &nbsp;·&nbsp; <b>VOL-ADJ:</b> 3M return ÷ 3M realized vol (higher = smoother trend)
     &nbsp;·&nbsp; <b>RESID 3M:</b> 3M return minus industry median (the stock, not the sector)
     &nbsp;·&nbsp; <b>Turnover:</b> 20d median daily traded value
@@ -265,8 +268,10 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
   <div style="padding:16px 32px;background:#f9fafb;border-top:1px solid #e5e7eb;
               font-size:11px;color:#9ca3af;line-height:1.6;">
     <b>Methodology:</b> Composite score = weighted percentile rank across 10 signals
-    (2W/1M/3M/6M returns, 20D &amp; 52W high proximity, volume surge, RSI-14 sweet zone 55–75,
-    OBV slope, volume acceleration). ~40% of weight on sub-1-month signals.
+    (2W/1M/3M/6M returns, 20D &amp; 52W high proximity, breakout persistence — days held at highs,
+    10-day sustained volume, up/down volume asymmetry — RSI-14 sweet zone 55–75, OBV slope).
+    One-day volume spikes carry ZERO score weight: sustained participation over 10 sessions
+    is required, so block deals and news prints cannot rank a stock.
     Liquidity floor: 20d median turnover ≥ ₹{config.MIN_TURNOVER_LAKH}L/day.
     Extended names (blowoff profile) are ranked but shown separately.
     VOL-ADJ and RESID 3M are display-only diagnostics — not in the composite —
