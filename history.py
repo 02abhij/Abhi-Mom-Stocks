@@ -99,6 +99,10 @@ def save_today(df: pd.DataFrame) -> None:
         "rank": df.index.values,
         "momentum_score": df["momentum_score"].values,
     })
+    # Log diagnostics for the forward-return backtest (tolerant if absent)
+    for col in ("vol_adj_3m", "resid_3m", "return_3m_num"):
+        if col in df.columns:
+            snapshot[col] = df[col].values
     hist = pd.concat([hist, snapshot], ignore_index=True)
 
     # Trim to KEEP_DAYS most recent dates
