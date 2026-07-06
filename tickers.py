@@ -18,6 +18,8 @@ import io
 import logging
 import time
 
+import config
+
 log = logging.getLogger(__name__)
 
 HEADERS = {
@@ -131,6 +133,10 @@ def get_all_tickers() -> tuple[list[str], dict]:
     for t in _fetch_sme_emerge():
         if t not in ticker_meta:
             ticker_meta[t] = {"index": "NSE SME Emerge", "industry": "SME (unclassified)"}
+
+    for t in getattr(config, "EXTRA_TICKERS", []):
+        if t not in ticker_meta:
+            ticker_meta[t] = {"index": "Watchlist", "industry": "Unknown"}
 
     tickers = list(ticker_meta.keys())
     log.info(f"Total unique tickers across all indices: {len(tickers)}")
