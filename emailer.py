@@ -108,6 +108,8 @@ def _row_html(rank, row, extended_style: bool = False) -> str:
       <td style="padding:9px 7px;text-align:center;font-weight:600;">{_col(row, 'pct_from_20d_high')}</td>
       <td style="padding:9px 7px;text-align:center;">{_col(row, 'pct_from_52w')}</td>
       <td style="padding:9px 7px;text-align:center;font-weight:600;">{_col(row, 'vol_surge')}</td>
+      <td style="padding:9px 7px;text-align:center;font-weight:600;color:#7c3aed;">{_col(row, 'vol_adj_3m')}</td>
+      <td style="padding:9px 7px;text-align:center;color:{_ret_color(str(_col(row, 'resid_3m')))};">{_col(row, 'resid_3m')}</td>
       <td style="padding:9px 7px;text-align:center;">{_col(row, 'rsi')}</td>
       <td style="padding:9px 7px;text-align:center;color:#6b7280;">{_col(row, 'turnover_l')}</td>
     </tr>"""
@@ -127,13 +129,46 @@ _THEAD = """
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">vs 20D Hi</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">vs 52W Hi</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">VOL SURGE</th>
+      <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">VOL-ADJ</th>
+      <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">RESID 3M</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">RSI</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">TURNOVER</th>
     </tr>"""
 
 
+def _cluster_panel(top: pd.DataFrame) -> str:
+    """Druckenmiller view: which sectors dominate today's list. Clusters of 4+
+    names moving together are one macro signal wearing many stock costumes."""
+    if "industry" not in top.columns or "return_3m_num" not in top.columns:
+        return ""
+    try:
+        g = (top[top["industry"].notna()]
+             .groupby("industry")
+             .agg(n=("ticker", "size"), med=("return_3m_num", "median"))
+             .sort_values("n", ascending=False))
+        g = g[g["n"] >= 4].head(6)
+        if g.empty:
+            return ""
+        chips = " ".join(
+            f'<span style="background:#ede9fe;color:#5b21b6;padding:4px 10px;'
+            f'border-radius:14px;font-size:12px;font-weight:700;display:inline-block;'
+            f'margin:2px;">{ind}: {int(row.n)} names · med 3M {row.med*100:+.0f}%</span>'
+            for ind, row in g.iterrows()
+        )
+        return f"""
+  <div style="padding:14px 32px;background:#f5f3ff;border-bottom:1px solid #ddd6fe;">
+    <div style="font-size:12px;font-weight:800;color:#5b21b6;margin-bottom:6px;">
+      🧭 SECTOR CLUSTERS — breadth view (4+ names from one industry = one macro signal)
+    </div>
+    {chips}
+  </div>"""
+    except Exception:
+        return ""
+
+
 def build_html(df: pd.DataFrame, run_date: str) -> str:
     top = df.head(config.TOP_N).copy()
+    cluster_panel = _cluster_panel(top)
 
     has_ext = "extended" in top.columns
     main = top[~top["extended"]] if has_ext else top
@@ -206,13 +241,15 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
       {index_summary}
     </div>
   </div>
-{fresh_strip}
+{fresh_strip}{cluster_panel}
   <!-- Legend -->
   <div style="padding:14px 32px;background:#eff6ff;border-bottom:1px solid #dbeafe;
               font-size:12px;color:#1d4ed8;line-height:1.7;">
     <b>Δ column:</b> NEW = first day on list · ▲▼ = rank change vs previous run · dN = consecutive days on list
     &nbsp;·&nbsp; <b>vs 20D Hi:</b> 100% = at/breaking 20-day high
     &nbsp;·&nbsp; <b>Vol Surge:</b> today's volume ÷ 20d avg (&gt;2x = breakout confirmation)
+    &nbsp;·&nbsp; <b>VOL-ADJ:</b> 3M return ÷ 3M realized vol (higher = smoother trend)
+    &nbsp;·&nbsp; <b>RESID 3M:</b> 3M return minus industry median (the stock, not the sector)
     &nbsp;·&nbsp; <b>Turnover:</b> 20d median daily traded value
   </div>
 
@@ -232,6 +269,8 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
     OBV slope, volume acceleration). ~40% of weight on sub-1-month signals.
     Liquidity floor: 20d median turnover ≥ ₹{config.MIN_TURNOVER_LAKH}L/day.
     Extended names (blowoff profile) are ranked but shown separately.
+    VOL-ADJ and RESID 3M are display-only diagnostics — not in the composite —
+    pending backtest evidence from the history file.
     All scores are cross-sectional — relative to today's universe, not absolute thresholds.<br>
     <b>Not investment advice.</b> Run your own thesis before acting on any name.
   </div>
