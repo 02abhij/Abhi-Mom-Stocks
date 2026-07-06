@@ -234,20 +234,27 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
                    and (ticker_meta.get(t, {}).get("index") if isinstance(ticker_meta.get(t), dict)
                         else ticker_meta.get(t)) == "NSE SME Emerge"]
     if missing_sme:
-        retry_map = {t.replace(".NS", "-SM.NS"): t for t in missing_sme}
-        log.info(f"Retrying {len(retry_map)} SME tickers with -SM suffix...")
-        retry_batches = [list(retry_map.keys())[i:i + BATCH]
-                         for i in range(0, len(retry_map), BATCH)]
+        # Individual retries via Ticker().history(period=...): the multi-ticker batch
+        # endpoint returns empty bars for many -SM symbols even though Yahoo knows
+        # them (observed Jul 2026: 247/247 empty via batch). Per-ticker with a
+        # period-based request and a small delay avoids both that quirk and
+        # throttling after the main batch run.
+        import time as _time
+        log.info(f"Retrying {len(missing_sme)} SME tickers individually with -SM suffix...")
         recovered = 0
-        for batch in retry_batches:
-            hist_batch = _download_batch(batch, start_date, end_date)
-            for sm_ticker, df_hist in hist_batch.items():
-                orig = retry_map[sm_ticker]
-                all_hist[sm_ticker] = df_hist
-                ticker_meta[sm_ticker] = ticker_meta.get(orig, {"index": "NSE SME Emerge",
-                                                                "industry": "SME (unclassified)"})
-                recovered += 1
-        log.info(f"Recovered {recovered} SME tickers via -SM suffix")
+        for orig in missing_sme:
+            sm_ticker = orig.replace(".NS", "-SM.NS")
+            try:
+                h = yf.Ticker(sm_ticker).history(period="450d", auto_adjust=True)
+                if h is not None and not h.empty and "Close" in h.columns:
+                    all_hist[sm_ticker] = h
+                    ticker_meta[sm_ticker] = ticker_meta.get(orig, {"index": "NSE SME Emerge",
+                                                                    "industry": "SME (unclassified)"})
+                    recovered += 1
+            except Exception as e:
+                log.debug(f"{sm_ticker} individual retry failed: {e}")
+            _time.sleep(0.3)
+        log.info(f"Recovered {recovered}/{len(missing_sme)} SME tickers via individual -SM retries")
 
     log.info(f"Got data for {len(all_hist)}/{len(tickers)} tickers (incl. -SM recoveries)")
 
