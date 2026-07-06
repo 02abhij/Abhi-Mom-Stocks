@@ -88,8 +88,12 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
         volume = hist_df["Volume"].dropna()
         close, volume = close.align(volume, join="inner")
 
+        young = False
         if len(close) < config.MIN_HISTORY_DAYS:
-            return None
+            if len(close) >= getattr(config, "YOUNG_MIN_DAYS", 30):
+                young = True   # compute what the data supports; shown separately
+            else:
+                return None
 
         price = float(close.iloc[-1])
         avg_vol_20 = float(volume.tail(20).mean())
@@ -144,6 +148,7 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
 
         return {
             "ticker":            ticker,
+            "young":             young,
             "price":             round(price, 2),
             "avg_vol_20d":       int(avg_vol_20),
             "turnover_l":        turnover_l,
@@ -222,7 +227,29 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
         hist_batch = _download_batch(batch, start_date, end_date)
         all_hist.update(hist_batch)
 
-    log.info(f"Got data for {len(all_hist)}/{len(tickers)} tickers")
+    # Retry missing NSE Emerge names with Yahoo's -SM suffix (e.g. AKIKO-SM.NS).
+    # Yahoo lists many SME Emerge tickers only under SYMBOL-SM.NS.
+    missing_sme = [t for t in tickers
+                   if t not in all_hist and t.endswith(".NS") and "-SM" not in t
+                   and (ticker_meta.get(t, {}).get("index") if isinstance(ticker_meta.get(t), dict)
+                        else ticker_meta.get(t)) == "NSE SME Emerge"]
+    if missing_sme:
+        retry_map = {t.replace(".NS", "-SM.NS"): t for t in missing_sme}
+        log.info(f"Retrying {len(retry_map)} SME tickers with -SM suffix...")
+        retry_batches = [list(retry_map.keys())[i:i + BATCH]
+                         for i in range(0, len(retry_map), BATCH)]
+        recovered = 0
+        for batch in retry_batches:
+            hist_batch = _download_batch(batch, start_date, end_date)
+            for sm_ticker, df_hist in hist_batch.items():
+                orig = retry_map[sm_ticker]
+                all_hist[sm_ticker] = df_hist
+                ticker_meta[sm_ticker] = ticker_meta.get(orig, {"index": "NSE SME Emerge",
+                                                                "industry": "SME (unclassified)"})
+                recovered += 1
+        log.info(f"Recovered {recovered} SME tickers via -SM suffix")
+
+    log.info(f"Got data for {len(all_hist)}/{len(tickers)} tickers (incl. -SM recoveries)")
 
     # Extract signals
     records = []
@@ -293,6 +320,11 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
 
     # Numeric copies preserved for the emailer's sector-cluster panel and history
     df["return_3m_num"] = df["return_3m"]
+    df["return_1m_num"] = df["return_1m"]
+
+    # Young listings carry no composite score — their signal set is incomplete
+    # and cross-sectional ranks vs the mature universe would be misleading.
+    df.loc[df["young"], "momentum_score"] = np.nan
 
     # ── Blowoff / extended flag (computed on RAW numerics, before formatting) ─
     df["extended"] = (
@@ -302,7 +334,7 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
 
     df = df.sort_values("momentum_score", ascending=False).reset_index(drop=True)
     df.index += 1  # rank starts at 1
-    df["momentum_score"] = df["momentum_score"].round(1)
+    df["momentum_score"] = df["momentum_score"].round(1)  # NaN (young) stays NaN, sorts last
 
     # ── History memory: annotate + save today's snapshot ─────────────────────
     try:
