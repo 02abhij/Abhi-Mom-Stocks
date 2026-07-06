@@ -120,6 +120,14 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
         last_vol = float(volume.iloc[-1])
         vol_surge = (last_vol / avg_vol_20) if avg_vol_20 > 0 else np.nan
 
+        # Realized 3M volatility and vol-adjusted momentum (Barroso/Santa-Clara spirit):
+        # return per unit of same-period volatility. Rewards Schneider-style low-vol
+        # trends over lottery-ticket spikes of equal magnitude.
+        daily_rets = close.pct_change().dropna()
+        vol_3m = float(daily_rets.tail(63).std()) * np.sqrt(63) if len(daily_rets) >= 63 else np.nan
+        ret_3m = _pct_return(close, 63)
+        vol_adj_3m = (ret_3m / vol_3m) if (vol_3m and vol_3m > 0 and not pd.isna(ret_3m)) else np.nan
+
         return {
             "ticker":            ticker,
             "price":             round(price, 2),
@@ -127,7 +135,7 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
             "turnover_l":        turnover_l,
             "return_2w":         _pct_return(close, 10),
             "return_1m":         _pct_return(close, 21),
-            "return_3m":         _pct_return(close, 63),
+            "return_3m":         ret_3m,
             "return_6m":         _pct_return(close, 126),
             "pct_from_52w":      pct_from_52w,
             "pct_from_20d_high": pct_from_20d_high,
@@ -135,6 +143,7 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame) -> dict | None:
             "obv_slope":         _obv_slope(obv),
             "vol_ratio":         vol_ratio,
             "vol_surge":         vol_surge,
+            "vol_adj_3m":        vol_adj_3m,
             "52w_high":          round(high_52w, 2),
         }
     except Exception as e:
@@ -203,7 +212,13 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
     for ticker, hist_df in all_hist.items():
         signals = _extract_signals(ticker, hist_df)
         if signals:
-            signals["index"] = ticker_meta.get(ticker, "Unknown")
+            meta = ticker_meta.get(ticker, {})
+            if isinstance(meta, dict):
+                signals["index"] = meta.get("index", "Unknown")
+                signals["industry"] = meta.get("industry", "Unknown")
+            else:  # legacy string meta
+                signals["index"] = meta or "Unknown"
+                signals["industry"] = "Unknown"
             records.append(signals)
 
     if not records:
@@ -249,6 +264,18 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
         df["vol_ratio_rank"]         * w["vol_ratio"]
     ) * 100
 
+    # ── Residual (sector-relative) momentum ──────────────────────────────────
+    # Stock's 3M return minus its industry's median 3M return across the FULL
+    # valid universe (not just the top N) — how much of the move is the stock,
+    # not the sector costume. Industries with <3 names fall back to 0 residual
+    # weight of evidence (resid vs a 1-2 name "median" is noise).
+    ind_counts = df.groupby("industry")["ticker"].transform("count")
+    ind_median = df.groupby("industry")["return_3m"].transform("median")
+    df["resid_3m"] = np.where(ind_counts >= 3, df["return_3m"] - ind_median, np.nan)
+
+    # Numeric copies preserved for the emailer's sector-cluster panel and history
+    df["return_3m_num"] = df["return_3m"]
+
     # ── Blowoff / extended flag (computed on RAW numerics, before formatting) ─
     df["extended"] = (
         (df["rsi"] > config.EXTENDED_RSI) |
@@ -278,6 +305,10 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
     df["rsi"] = df["rsi"].map(lambda x: f"{x:.1f}" if pd.notna(x) else "N/A")
     df["vol_ratio"] = df["vol_ratio"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
     df["vol_surge"] = df["vol_surge"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
+    df["vol_adj_3m"] = df["vol_adj_3m"].map(lambda x: f"{x:.1f}" if pd.notna(x) else "N/A")
+    df["resid_3m"] = df["resid_3m"].map(
+        lambda x: (f"+{x*100:.0f}%" if x >= 0 else f"{x*100:.0f}%") if pd.notna(x) else "—"
+    )
     df["turnover_l"] = df["turnover_l"].map(
         lambda x: (f"₹{x/100:.1f}Cr" if x >= 100 else f"₹{x:.0f}L") if pd.notna(x) else "N/A"
     )
