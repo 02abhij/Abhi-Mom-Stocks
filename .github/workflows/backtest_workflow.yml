@@ -1,0 +1,36 @@
+name: Rule Backtest
+
+on:
+  workflow_dispatch:   # manual trigger only — this is a one-off analysis, not a schedule
+
+permissions:
+  contents: write      # commits backtests/ results back to the repo
+
+jobs:
+  run-backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install pandas numpy requests yfinance
+
+      - name: Run backtest
+        run: python backtest.py
+
+      - name: Commit results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add backtests/
+          git diff --cached --quiet || git commit -m "backtest: rule validation $(date -u +%F)"
+          git pull --rebase origin main || true
+          git push
