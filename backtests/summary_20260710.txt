@@ -1,0 +1,38 @@
+======================================================================
+MOMENTUM RULE BACKTEST — 10 Jul 2026 08:40
+Universe: 1049 stocks (TODAY'S membership — survivorship
+bias inflates absolute returns; trust EXCESS-vs-median numbers).
+Dedupe: 20 trading days. Liquidity floor Rs 25 Cr.
+======================================================================
+
+== RULE 1 (VOL10D>=3.0, flat 2W, RSI<=75): 686 signals (2023-08-10 → 2026-05-04) ==
+  10d fwd: hit-vs-median  49.7% | median excess  -0.04% | mean excess  +1.70% | abs>0  52.5% | worst  -24.8%
+  30d fwd: hit-vs-median  49.6% | median excess  -0.13% | mean excess  +2.52% | abs>0  49.0% | worst  -37.6%
+  45d fwd: hit-vs-median  47.1% | median excess  -1.20% | mean excess  +2.52% | abs>0  48.5% | worst  -40.7%
+  by year (30d median excess, n):
+    2023:  +1.04%  (n=112)
+    2024:  -0.05%  (n=254)
+    2025:  +0.08%  (n=222)
+    2026:  -2.92%  (n=98)
+
+== RULE 2 (top-20 x 5d, VOL-ADJ>=2.5, RSI<=75): 79 signals (2023-09-20 → 2026-03-11) ==
+  10d fwd: hit-vs-median  54.4% | median excess  +0.55% | mean excess  +0.86% | abs>0  48.1% | worst  -15.9%
+  30d fwd: hit-vs-median  46.8% | median excess  -0.88% | mean excess  +0.90% | abs>0  46.8% | worst  -36.1%
+  45d fwd: hit-vs-median  51.9% | median excess  +0.67% | mean excess  +2.65% | abs>0  54.4% | worst  -55.3%
+  by year (30d median excess, n):
+    2023:  -0.94%  (n=13)
+    2024:  +0.36%  (n=32)
+    2025:  -3.19%  (n=30)
+    2026:  +7.44%  (n=4)
+
+--- THRESHOLD SWEEPS (30d median excess | hit% | n) ---
+  R1 VOL10D>=2.0:  +0.72% | 53.0% | n=2081
+  R1 VOL10D>=2.5:  +0.26% | 51.4% | n=1139
+  R1 VOL10D>=3.0:  -0.13% | 49.6% | n=686
+  R1 VOL10D>=4.0:  -1.10% | 47.1% | n=331
+  R2 streak d3:   -1.11% | 48.3% | n=118
+  R2 streak d5:   -0.88% | 46.8% | n=79
+  R2 streak d7:   +0.44% | 51.8% | n=56
+  R1 RSI<=70:    -0.45% | 48.5% | n=662
+  R1 RSI<=75:    -0.13% | 49.6% | n=686
+  R1 RSI<=80:    -0.12% | 49.6% | n=687
