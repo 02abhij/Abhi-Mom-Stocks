@@ -66,6 +66,9 @@ EXTRA_TICKERS = [
     "TIMEX.NS",      # NSE-listed Apr 2026, ex BSE-only
     "INDOSMC.BO",    # BSE, listed May 2026
     "KISSHT.NS",     # OnEMI Technology, listed May 2026
+    "ZELIO.BO",      # Zelio listed in Nov 2025
+    "AKIKO-SM.NS",   
+    "VIGOR-SM.NS",
 ]
 
 # ── Young listings (30–129 trading days of history) ─────────────
