@@ -66,9 +66,6 @@ EXTRA_TICKERS = [
     "TIMEX.NS",      # NSE-listed Apr 2026, ex BSE-only
     "INDOSMC.BO",    # BSE, listed May 2026
     "KISSHT.NS",     # OnEMI Technology, listed May 2026
-    "ZELIO.BO",      # Zelio listed in Nov 2025
-    "AKIKO-SM.NS",   
-    "VIGOR-SM.NS",
 ]
 
 # ── Young listings (30–129 trading days of history) ─────────────
@@ -76,6 +73,11 @@ EXTRA_TICKERS = [
 # separate 🌱 section — NOT ranked against the main universe.
 YOUNG_MIN_DAYS   = 30
 YOUNG_MAX_SHOWN  = 15          # cap the young-listings table in the email
+
+# ── Universe integrity guard ─────────────────────────────────────
+MIN_UNIVERSE_SIZE = 500        # Abort the run (no email, no history write) if
+                               # fewer tickers than this are fetched — protects
+                               # streak continuity when NSE index sources 503.
 
 # ── History / memory settings ────────────────────────────────────
 HISTORY_FILE      = "history/momentum_history.csv"
