@@ -31,21 +31,49 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
+# Each index has two official sources: NSE archives (primary) and
+# niftyindices.com (same CSVs, separate infrastructure). Tried in order —
+# one being down no longer kills the fetch.
 NSE_INDEX_URLS = {
-    "Nifty 500": "https://archives.nseindia.com/content/indices/ind_nifty500list.csv",
-    "Nifty Microcap 250": "https://archives.nseindia.com/content/indices/ind_niftymicrocap250_list.csv",
-    "Nifty Smallcap 250": "https://archives.nseindia.com/content/indices/ind_niftysmallcap250list.csv",
-    "Nifty Smallcap 50": "https://archives.nseindia.com/content/indices/ind_niftysmallcap50list.csv",
+    "Nifty 500": [
+        "https://archives.nseindia.com/content/indices/ind_nifty500list.csv",
+        "https://www.niftyindices.com/IndexConstituent/ind_nifty500list.csv",
+    ],
+    "Nifty Microcap 250": [
+        "https://archives.nseindia.com/content/indices/ind_niftymicrocap250_list.csv",
+        "https://www.niftyindices.com/IndexConstituent/ind_niftymicrocap250_list.csv",
+    ],
+    "Nifty Smallcap 250": [
+        "https://archives.nseindia.com/content/indices/ind_niftysmallcap250list.csv",
+        "https://www.niftyindices.com/IndexConstituent/ind_niftysmallcap250list.csv",
+    ],
+    "Nifty Smallcap 50": [
+        "https://archives.nseindia.com/content/indices/ind_niftysmallcap50list.csv",
+        "https://www.niftyindices.com/IndexConstituent/ind_niftysmallcap50list.csv",
+    ],
 }
 
 
-def _fetch_nse_csv(name: str, url: str) -> list[tuple[str, str]]:
-    """Download an NSE index CSV. Returns list of (yahoo_ticker, industry)."""
+def _fetch_nse_csv(name: str, urls) -> list[tuple[str, str]]:
+    """Download an NSE index CSV, trying each source URL in order.
+    Returns list of (yahoo_ticker, industry)."""
+    if isinstance(urls, str):
+        urls = [urls]
+    last_err = None
+    for url in urls:
+        result = _fetch_one_csv(name, url)
+        if result:
+            return result
+    return []
+
+
+def _fetch_one_csv(name: str, url: str) -> list[tuple[str, str]]:
     try:
         session = requests.Session()
-        # NSE requires a cookie — seed it with a homepage visit
-        session.get("https://www.nseindia.com", headers=HEADERS, timeout=10)
-        time.sleep(1)
+        if "nseindia.com" in url:
+            # NSE requires a cookie — seed it with a homepage visit
+            session.get("https://www.nseindia.com", headers=HEADERS, timeout=10)
+            time.sleep(1)
         r = session.get(url, headers=HEADERS, timeout=15)
         r.raise_for_status()
         df = pd.read_csv(io.StringIO(r.text))
@@ -61,10 +89,10 @@ def _fetch_nse_csv(name: str, url: str) -> list[tuple[str, str]]:
                 continue
             industry = str(row[ind_col]).strip() if ind_col and pd.notna(row.get(ind_col)) else "Unknown"
             out.append((sym + ".NS", industry))
-        log.info(f"{name}: {len(out)} tickers fetched")
+        log.info(f"{name}: {len(out)} tickers fetched from {url.split('/')[2]}")
         return out
     except Exception as e:
-        log.warning(f"{name}: fetch failed — {e}")
+        log.warning(f"{name}: fetch failed from {url.split('/')[2]} — {e}")
         return []
 
 
