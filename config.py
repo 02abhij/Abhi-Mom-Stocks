@@ -63,10 +63,20 @@ EXTENDED_3M      = 1.50        # 3M return above 150% = extended
 # ── Watchlist: names outside the index universe (recent listings,
 #    BSE-only names, exchange migrants). .NS = NSE, .BO = BSE, -SM.NS = NSE Emerge
 EXTRA_TICKERS = [
-    "TIMEX.NS",      # NSE-listed Apr 2026, ex BSE-only
-    "INDOSMC.BO",    # BSE, listed May 2026
-    "KISSHT.NS",     # OnEMI Technology, listed May 2026
+    "TIMEX.NS",       # NSE-listed Apr 2026, ex BSE-only
+    "INDOSMC.BO",     # BSE, listed May 2026
+    "KISSHT.NS",      # OnEMI Technology, listed May 2026
+    "ZELIO.BO",       # OR sleeve holding — BSE
+    "AKIKO-SM.NS",    # primary portfolio holding
+    "VIGOR-SM.NS",    # holding — guaranteed coverage
 ]
+
+# ── Universe cache ───────────────────────────────────────────────
+# Every successful fetch saves the ticker list here (committed with the
+# history folder). If NSE index sources fail, the last good list is used
+# instead — index membership changes only at semi-annual rebalances, so a
+# cached universe days or weeks old is effectively current.
+UNIVERSE_CACHE_FILE = "history/universe_cache.csv"
 
 # ── Young listings (30–129 trading days of history) ─────────────
 # Not discarded anymore: computable short-window signals only, shown in a
