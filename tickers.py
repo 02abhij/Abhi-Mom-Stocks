@@ -140,4 +140,44 @@ def get_all_tickers() -> tuple[list[str], dict]:
 
     tickers = list(ticker_meta.keys())
     log.info(f"Total unique tickers across all indices: {len(tickers)}")
+
+    cache_file = getattr(config, "UNIVERSE_CACHE_FILE", "history/universe_cache.csv")
+    min_size = getattr(config, "MIN_UNIVERSE_SIZE", 500)
+
+    if len(tickers) >= min_size:
+        # Healthy fetch — refresh the cache
+        try:
+            import os
+            os.makedirs(os.path.dirname(cache_file), exist_ok=True)
+            rows = []
+            for tk, m in ticker_meta.items():
+                if isinstance(m, dict):
+                    rows.append({"ticker": tk, "index": m.get("index", "Unknown"),
+                                 "industry": m.get("industry", "Unknown")})
+                else:
+                    rows.append({"ticker": tk, "index": str(m), "industry": "Unknown"})
+            pd.DataFrame(rows).to_csv(cache_file, index=False)
+            log.info(f"Universe cache refreshed: {len(rows)} tickers")
+        except Exception as e:
+            log.warning(f"Could not write universe cache: {e}")
+    else:
+        # Collapsed fetch — fall back to last good universe if available
+        try:
+            cached = pd.read_csv(cache_file)
+            if len(cached) >= min_size:
+                log.warning(f"NSE sources down ({len(tickers)} fetched) — "
+                            f"FALLING BACK to cached universe of {len(cached)} tickers "
+                            f"(from last successful run)")
+                # Merge: cached universe + whatever live extras we did fetch
+                for _, r in cached.iterrows():
+                    if r["ticker"] not in ticker_meta:
+                        ticker_meta[r["ticker"]] = {"index": r["index"], "industry": r["industry"]}
+                tickers = list(ticker_meta.keys())
+            else:
+                log.warning("Universe cache too small to use as fallback")
+        except FileNotFoundError:
+            log.warning("No universe cache found — run once while NSE is up to create it")
+        except Exception as e:
+            log.warning(f"Universe cache fallback failed: {e}")
+
     return tickers, ticker_meta
