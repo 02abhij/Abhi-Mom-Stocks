@@ -216,6 +216,13 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
     cross-sectionally ranks signals, annotates with history memory,
     saves today's snapshot, returns sorted DataFrame.
     """
+    min_universe = getattr(config, "MIN_UNIVERSE_SIZE", 500)
+    if len(tickers) < min_universe:
+        log.error(f"UNIVERSE COLLAPSE: only {len(tickers)} tickers fetched "
+                  f"(< {min_universe}). NSE index sources likely down. "
+                  f"Aborting WITHOUT saving history or ranking — re-run once sources recover.")
+        return pd.DataFrame()
+
     end_date = datetime.today().strftime("%Y-%m-%d")
     start_date = (datetime.today() - timedelta(days=LOOKBACK_DAYS)).strftime("%Y-%m-%d")
 
@@ -237,6 +244,9 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
                    if t not in all_hist and t.endswith(".NS") and "-SM" not in t
                    and (ticker_meta.get(t, {}).get("index") if isinstance(ticker_meta.get(t), dict)
                         else ticker_meta.get(t)) == "NSE SME Emerge"]
+    # Watchlist/extra tickers already carrying the -SM suffix also fail the batch
+    # endpoint — retry them individually as-is (no suffix rewrite needed).
+    missing_sm_direct = [t for t in tickers if t not in all_hist and t.endswith("-SM.NS")]
     if missing_sme:
         # Individual retries via Ticker().history(period=...): the multi-ticker batch
         # endpoint returns empty bars for many -SM symbols even though Yahoo knows
@@ -259,6 +269,21 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
                 log.debug(f"{sm_ticker} individual retry failed: {e}")
             _time.sleep(0.3)
         log.info(f"Recovered {recovered}/{len(missing_sme)} SME tickers via individual -SM retries")
+
+    if missing_sm_direct:
+        import time as _time2
+        log.info(f"Retrying {len(missing_sm_direct)} -SM watchlist tickers individually...")
+        rec2 = 0
+        for sm_ticker in missing_sm_direct:
+            try:
+                h = yf.Ticker(sm_ticker).history(period="450d", auto_adjust=True)
+                if h is not None and not h.empty and "Close" in h.columns:
+                    all_hist[sm_ticker] = h
+                    rec2 += 1
+            except Exception as e:
+                log.debug(f"{sm_ticker} direct retry failed: {e}")
+            _time2.sleep(0.3)
+        log.info(f"Recovered {rec2}/{len(missing_sm_direct)} -SM watchlist tickers")
 
     log.info(f"Got data for {len(all_hist)}/{len(tickers)} tickers (incl. -SM recoveries)")
 
