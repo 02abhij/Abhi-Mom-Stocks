@@ -102,15 +102,17 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame, reject_counts: dict | N
         price = float(close.iloc[-1])
         avg_vol_20 = float(volume.tail(20).mean())
 
-        if price < config.MIN_PRICE:
+        is_holding = ticker in getattr(config, "HOLDING_TICKERS", [])
+
+        if not is_holding and price < config.MIN_PRICE:
             return _reject("price<min")
-        if avg_vol_20 < config.MIN_AVG_VOLUME:
+        if not is_holding and avg_vol_20 < config.MIN_AVG_VOLUME:
             return _reject("volume<min")
 
         # Liquidity: 20d MEDIAN daily traded value (median resists one-day spikes)
         turnover_series = (close.tail(20) * volume.tail(20))
         turnover_l = float(turnover_series.median()) / 1e5   # ₹ lakh
-        if turnover_l < config.MIN_TURNOVER_LAKH:
+        if not is_holding and turnover_l < config.MIN_TURNOVER_LAKH:
             return _reject("turnover<50L")
 
         high_52w = float(close.tail(252).max())
@@ -153,6 +155,8 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame, reject_counts: dict | N
         return {
             "ticker":            ticker,
             "young":             young,
+            "holding":           is_holding,
+            "below_liq_floor":   turnover_l < config.MIN_TURNOVER_LAKH,
             "price":             round(price, 2),
             "avg_vol_20d":       int(avg_vol_20),
             "turnover_l":        turnover_l,
