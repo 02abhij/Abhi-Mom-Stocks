@@ -263,7 +263,11 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
         for orig in missing_sme:
             sm_ticker = orig.replace(".NS", "-SM.NS")
             try:
-                h = yf.Ticker(sm_ticker).history(period="450d", auto_adjust=True)
+                h = yf.Ticker(sm_ticker).history(start=start_date, end=end_date, auto_adjust=True)
+                if h is None or len(h) < 60:
+                    # Fallback: some yfinance versions serve single-symbol data more
+                    # reliably via a documented period string
+                    h = yf.Ticker(sm_ticker).history(period="2y", auto_adjust=True)
                 if h is not None and not h.empty and "Close" in h.columns:
                     all_hist[sm_ticker] = h
                     ticker_meta[sm_ticker] = ticker_meta.get(orig, {"index": "NSE SME Emerge",
@@ -280,7 +284,11 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
         rec2 = 0
         for sm_ticker in missing_sm_direct:
             try:
-                h = yf.Ticker(sm_ticker).history(period="450d", auto_adjust=True)
+                h = yf.Ticker(sm_ticker).history(start=start_date, end=end_date, auto_adjust=True)
+                if h is None or len(h) < 60:
+                    # Fallback: some yfinance versions serve single-symbol data more
+                    # reliably via a documented period string
+                    h = yf.Ticker(sm_ticker).history(period="2y", auto_adjust=True)
                 if h is not None and not h.empty and "Close" in h.columns:
                     all_hist[sm_ticker] = h
                     rec2 += 1
