@@ -223,6 +223,31 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
     </table>
   </div>"""
 
+    holdings_section = ""
+    if "holding" in df.columns:
+        hold = df[df["holding"] == True].copy()
+        if len(hold) > 0:
+            hold = hold.sort_values("momentum_score", ascending=False, na_position="last")
+            hrows = ""
+            for rank, row in hold.iterrows():
+                liq_flag = (' <span style="color:#b45309;font-weight:800;" '
+                            'title="below liquidity floor">⚠</span>') \
+                    if _col(row, "below_liq_floor", False) is True else ""
+                hrows += _row_html(rank, row).replace(
+                    f'>{row["ticker"].replace(".NS", "")}',
+                    f'>{row["ticker"].replace(".NS", "")}{liq_flag}', 1)
+            holdings_section = f"""
+  <div style="padding:14px 32px 4px;font-size:13px;font-weight:800;color:#0f766e;">
+    📌 HOLDINGS — your book, shown regardless of rank · ⚠ = 20d median turnover below
+    ₹{config.MIN_TURNOVER_LAKH}L (exit-liquidity watch) · {len(hold)} names
+  </div>
+  <div style="overflow-x:auto;padding:0 16px 24px;">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;">
+      <thead>{_THEAD}</thead>
+      <tbody>{hrows}</tbody>
+    </table>
+  </div>"""
+
     young_section = ""
     if len(young_df) > 0:
         y = young_df.copy()
@@ -271,7 +296,7 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
       {index_summary}
     </div>
   </div>
-{fresh_strip}{cluster_panel}
+{fresh_strip}{holdings_section}{cluster_panel}
   <!-- Legend -->
   <div style="padding:14px 32px;background:#eff6ff;border-bottom:1px solid #dbeafe;
               font-size:12px;color:#1d4ed8;line-height:1.7;">
