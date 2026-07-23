@@ -71,6 +71,20 @@ EXTRA_TICKERS = [
     "VIGOR-SM.NS",    # holding — guaranteed coverage
 ]
 
+# ── Holdings watch ───────────────────────────────────────────────
+# Tickers you own. Always downloaded, always shown in a pinned 📌 section
+# of the email with full stats — regardless of rank, and EXEMPT from the
+# price/volume/turnover display floors (a holding below the ₹50L turnover
+# floor is flagged ⚠ instead of hidden: that IS the exit-liquidity gauge).
+# Holdings still rank normally in the main list when they qualify.
+HOLDING_TICKERS = [
+    # OR sleeve
+    "WELCORP.NS", "ZELIO.BO", "GRWRHITECH.NS", "ATHERENERG.NS",
+    "UTLSOLAR.NS", "CAPLIPOINT.NS", "KTKBANK.NS", "MARKSANS.NS", "KAJARIACER.NS",
+    # Primary book (thin names needing daily liquidity telemetry)
+    "AKIKO-SM.NS", "VIGOR-SM.NS",
+]
+
 # ── Universe cache ───────────────────────────────────────────────
 # Every successful fetch saves the ticker list here (committed with the
 # history folder). If NSE index sources fail, the last good list is used
