@@ -67,8 +67,8 @@ EXTRA_TICKERS = [
     "INDOSMC.BO",     # BSE, listed May 2026
     "KISSHT.NS",      # OnEMI Technology, listed May 2026
     "ZELIO.BO",       # OR sleeve holding — BSE
-    "AKIKO-SM.NS",    # primary portfolio holding
-    "VIGOR-SM.NS",    # holding — guaranteed coverage
+    "AKIKO.NS",    # primary portfolio holding
+    "VIGOR.NS",    # holding — guaranteed coverage
 ]
 
 # ── Holdings watch ───────────────────────────────────────────────
@@ -82,7 +82,7 @@ HOLDING_TICKERS = [
     "WELCORP.NS", "ZELIO.BO", "GRWRHITECH.NS", "ATHERENERG.NS",
     "UTLSOLAR.NS", "CAPLIPOINT.NS", "KTKBANK.NS", "MARKSANS.NS", "KAJARIACER.NS",
     # Primary book (thin names needing daily liquidity telemetry)
-    "AKIKO-SM.NS", "VIGOR-SM.NS",
+    "AKIKO.NS", "VIGOR.NS",
 ]
 
 # ── Universe cache ───────────────────────────────────────────────
