@@ -70,6 +70,7 @@ EXTRA_TICKERS = [
     "AKIKO.NS",    # primary portfolio holding
     "VIGOR.NS",    # holding — guaranteed coverage
     "KSHINTL.NS",  # holding — Dec 2025 IPO, not yet in Nifty 500/Microcap 250; guaranteed coverage
+    "SHADOWFAX.NS", # Jan 2026 IPO, ~₹14,368 Cr mcap, not yet in any Nifty index; guaranteed coverage
 ]
 
 # ── Holdings watch ───────────────────────────────────────────────
