@@ -111,6 +111,7 @@ def _row_html(rank, row, extended_style: bool = False) -> str:
       <td style="padding:9px 7px;text-align:center;font-weight:600;">{_col(row, 'pct_from_20d_high')}</td>
       <td style="padding:9px 7px;text-align:center;">{_col(row, 'pct_from_52w')}</td>
       <td style="padding:9px 7px;text-align:center;font-weight:600;">{_col(row, 'vol_persist_10d')}</td>
+      <td style="padding:9px 7px;text-align:center;font-weight:600;">{_col(row, 'vol_spike_3d', '—')}</td>
       <td style="padding:9px 7px;text-align:center;font-weight:600;">{_col(row, 'days_at_high')}/10</td>
       <td style="padding:9px 7px;text-align:center;font-weight:600;color:#7c3aed;">{_col(row, 'vol_adj_3m')}</td>
       <td style="padding:9px 7px;text-align:center;color:{_ret_color(str(_col(row, 'resid_3m')))};">{_col(row, 'resid_3m')}</td>
@@ -133,6 +134,7 @@ _THEAD = """
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">vs 20D Hi</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">vs 52W Hi</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">VOL 10D</th>
+      <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">VOL SPIKE</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">HELD</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">VOL-ADJ</th>
       <th style="padding:11px 7px;text-align:center;color:#6b7280;font-size:11px;">RESID 3M</th>
@@ -303,6 +305,8 @@ def build_html(df: pd.DataFrame, run_date: str) -> str:
     <b>Δ column:</b> NEW = first day on list · ▲▼ = rank change vs previous run · dN = consecutive days on list
     &nbsp;·&nbsp; <b>vs 20D Hi:</b> 100% = at/breaking 20-day high
     &nbsp;·&nbsp; <b>VOL 10D:</b> 10d median volume ÷ prior 40d (&gt;1.5x sustained = accumulation)
+    &nbsp;·&nbsp; <b>VOL SPIKE:</b> peak of last 3d ÷ median of the 40d before them — event volume, which a median
+    cannot see (▲ &ge;5x, ⚠ &ge;15x = block/index event). Display only, zero scoring weight.
     &nbsp;·&nbsp; <b>HELD:</b> closes within 2% of 20d high, last 10 sessions (8+/10 = held breakout)
     &nbsp;·&nbsp; <b>VOL-ADJ:</b> 3M return ÷ 3M realized vol (higher = smoother trend)
     &nbsp;·&nbsp; <b>RESID 3M:</b> 3M return minus industry median (the stock, not the sector)
