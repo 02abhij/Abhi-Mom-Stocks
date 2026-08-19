@@ -69,6 +69,7 @@ EXTRA_TICKERS = [
     "ZELIO.BO",       # OR sleeve holding — BSE
     "AKIKO.NS",    # primary portfolio holding
     "VIGOR.NS",    # holding — guaranteed coverage
+    "KSHINTL.NS",  # holding — Dec 2025 IPO, not yet in Nifty 500/Microcap 250; guaranteed coverage
 ]
 
 # ── Holdings watch ───────────────────────────────────────────────
@@ -82,7 +83,7 @@ HOLDING_TICKERS = [
     "WELCORP.NS", "ZELIO.BO", "GRWRHITECH.NS", "ATHERENERG.NS",
     "UTLSOLAR.NS", "CAPLIPOINT.NS", "KTKBANK.NS", "MARKSANS.NS", "KAJARIACER.NS",
     # Primary book (thin names needing daily liquidity telemetry)
-    "AKIKO.NS", "VIGOR.NS",
+    "AKIKO.NS", "VIGOR.NS", "MANORAMA.NS", "KSHINTL.NS",
 ]
 
 # ── Universe cache ───────────────────────────────────────────────
