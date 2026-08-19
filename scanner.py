@@ -126,9 +126,28 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame, reject_counts: dict | N
         vol_60 = float(volume.tail(60).mean())
         vol_ratio = (avg_vol_20 / vol_60) if vol_60 > 0 else np.nan
 
-        # Breakout confirmation: latest day's volume vs 20d average
-        last_vol = float(volume.iloc[-1])
-        vol_surge = (last_vol / avg_vol_20) if avg_vol_20 > 0 else np.nan
+        # ── Event volume (display only, zero weight — see WEIGHTS note) ───────
+        # Baseline is the median of the 40 sessions PRECEDING the event window.
+        # Using a trailing mean that includes the spike days self-suppresses the
+        # metric: 3 large days inflate a 20d mean ~10x, so the spike divides by
+        # itself. Observed on MANORAMA (19 Aug 2026) — 3 sessions at ~20-40x
+        # baseline reported as ~2x.
+        vol_base = float(volume.iloc[-43:-3].median()) if len(volume) >= 43 else np.nan
+        if vol_base and vol_base > 0:
+            last_vol = float(volume.iloc[-1])
+            recent3 = volume.tail(3).astype(float)
+            vol_surge = last_vol / vol_base                    # 1-day, honest baseline
+            vol_spike_3d = float((recent3 / vol_base).max())   # peak of last 3 sessions
+            spike_days = int((recent3 / vol_base >= 5.0).sum())
+        else:
+            vol_surge = vol_spike_3d = np.nan
+            spike_days = 0
+
+        # Peak traded value over the event window. The 20d median turnover below
+        # is the exit-liquidity gauge and stays the gauge — this is reported
+        # alongside it, never instead of it, because event liquidity evaporates
+        # when the event does.
+        turnover_3d_max = float((close.tail(3) * volume.tail(3)).max()) / 1e5  # ₹ lakh
 
         # Persistence signals (7-15 session evidence, immune to one-day prints):
         vol_10_med = float(volume.tail(10).median())
@@ -170,6 +189,9 @@ def _extract_signals(ticker: str, hist_df: pd.DataFrame, reject_counts: dict | N
             "obv_slope":         _obv_slope(obv),
             "vol_ratio":         vol_ratio,
             "vol_surge":         vol_surge,
+            "vol_spike_3d":      vol_spike_3d,
+            "spike_days":        spike_days,
+            "turnover_3d_max":   turnover_3d_max,
             "vol_persist_10d":   vol_persist_10d,
             "accum_10d":         accum_10d,
             "days_at_high":      days_at_high,
@@ -413,6 +435,22 @@ def run_scan(tickers: list[str], ticker_meta: dict[str, str]) -> pd.DataFrame:
     df["vol_ratio"] = df["vol_ratio"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
     df["vol_surge"] = df["vol_surge"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
     df["vol_persist_10d"] = df["vol_persist_10d"].map(lambda x: f"{x:.2f}x" if pd.notna(x) else "N/A")
+
+    # Event-volume column. ⚠ = block-deal territory, ▲ = notable. The (Nd) suffix
+    # distinguishes a one-session print from a multi-session event — a 20x single
+    # day and a 20x three-day run are different animals.
+    def _fmt_spike(row):
+        v = row["vol_spike_3d"]
+        if pd.isna(v):
+            return "—"
+        marker = " ⚠" if v >= 15 else (" ▲" if v >= 5 else "")
+        suffix = f" ({int(row['spike_days'])}d)" if row["spike_days"] > 1 else ""
+        return f"{v:.1f}x{marker}{suffix}"
+
+    df["vol_spike_3d"] = df.apply(_fmt_spike, axis=1)
+    df["turnover_3d_max"] = df["turnover_3d_max"].map(
+        lambda x: (f"₹{x/100:.1f}Cr" if x >= 100 else f"₹{x:.0f}L") if pd.notna(x) else "N/A"
+    )
     df["accum_10d"] = df["accum_10d"].map(lambda x: f"{x:.1f}" if pd.notna(x) else "N/A")
     # days_at_high stays an integer 0-10
     df["vol_adj_3m"] = df["vol_adj_3m"].map(lambda x: f"{x:.1f}" if pd.notna(x) else "N/A")
