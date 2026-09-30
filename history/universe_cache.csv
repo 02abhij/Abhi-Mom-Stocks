@@ -1,6 +1,5 @@
 ticker,index,industry
 360ONE.NS,Nifty 500,Financial Services
-3MINDIA.NS,Nifty 500,Diversified
 ABB.NS,Nifty 500,Capital Goods
 ACC.NS,Nifty 500,Construction Materials
 ACMESOLAR.NS,Nifty 500,Power
@@ -21,13 +20,12 @@ ADANIPORTS.NS,Nifty 500,Services
 ADANIPOWER.NS,Nifty 500,Power
 ATGL.NS,Nifty 500,Oil Gas & Consumable Fuels
 ABCAPITAL.NS,Nifty 500,Financial Services
-ABFRL.NS,Nifty 500,Consumer Services
-ABLBL.NS,Nifty 500,Consumer Services
 ABREL.NS,Nifty 500,Realty
 ABSLAMC.NS,Nifty 500,Financial Services
 CPPLUS.NS,Nifty 500,Capital Goods
 AEGISLOG.NS,Nifty 500,Oil Gas & Consumable Fuels
 AEGISVOPAK.NS,Nifty 500,Oil Gas & Consumable Fuels
+AETHER.NS,Nifty 500,Chemicals
 AFCONS.NS,Nifty 500,Construction
 AFFLE.NS,Nifty 500,Information Technology
 AJANTPHARM.NS,Nifty 500,Healthcare
@@ -54,11 +52,14 @@ ATHERENERG.NS,Nifty 500,Automobile and Auto Components
 ATUL.NS,Nifty 500,Chemicals
 AUROPHARMA.NS,Nifty 500,Healthcare
 AIIL.NS,Nifty 500,Financial Services
+AVANTIFEED.NS,Nifty 500,Fast Moving Consumer Goods
 DMART.NS,Nifty 500,Consumer Services
 AXISBANK.NS,Nifty 500,Financial Services
+AZAD.NS,Nifty 500,Capital Goods
 BEML.NS,Nifty 500,Capital Goods
 BLS.NS,Nifty 500,Consumer Services
 BSE.NS,Nifty 500,Financial Services
+BAGMANE.NS,Nifty 500,Realty
 BAJAJ-AUTO.NS,Nifty 500,Automobile and Auto Components
 BAJFINANCE.NS,Nifty 500,Financial Services
 BAJAJFINSV.NS,Nifty 500,Financial Services
@@ -71,9 +72,9 @@ BANKBARODA.NS,Nifty 500,Financial Services
 BANKINDIA.NS,Nifty 500,Financial Services
 MAHABANK.NS,Nifty 500,Financial Services
 BATAINDIA.NS,Nifty 500,Consumer Durables
-BAYERCROP.NS,Nifty 500,Chemicals
 BELRISE.NS,Nifty 500,Automobile and Auto Components
 BERGEPAINT.NS,Nifty 500,Consumer Durables
+BHARATCOAL.NS,Nifty 500,Oil Gas & Consumable Fuels
 BDL.NS,Nifty 500,Capital Goods
 BEL.NS,Nifty 500,Capital Goods
 BHARATFORG.NS,Nifty 500,Automobile and Auto Components
@@ -81,19 +82,16 @@ BHEL.NS,Nifty 500,Capital Goods
 BPCL.NS,Nifty 500,Oil Gas & Consumable Fuels
 BHARTIARTL.NS,Nifty 500,Telecommunication
 BHARTIHEXA.NS,Nifty 500,Telecommunication
-BIKAJI.NS,Nifty 500,Fast Moving Consumer Goods
 GROWW.NS,Nifty 500,Financial Services
 BIOCON.NS,Nifty 500,Healthcare
 BSOFT.NS,Nifty 500,Information Technology
-BLUEDART.NS,Nifty 500,Services
-BLUEJET.NS,Nifty 500,Healthcare
+BBOX.NS,Nifty 500,Information Technology
 BLUESTARCO.NS,Nifty 500,Consumer Durables
-BBTC.NS,Nifty 500,Fast Moving Consumer Goods
 BOSCHLTD.NS,Nifty 500,Automobile and Auto Components
 FIRSTCRY.NS,Nifty 500,Consumer Services
 BRIGADE.NS,Nifty 500,Realty
 BRITANNIA.NS,Nifty 500,Fast Moving Consumer Goods
-MAPMYINDIA.NS,Nifty 500,Information Technology
+BIRET.NS,Nifty 500,Realty
 CCL.NS,Nifty 500,Fast Moving Consumer Goods
 CESC.NS,Nifty 500,Power
 CGPOWER.NS,Nifty 500,Capital Goods
@@ -111,7 +109,7 @@ CEATLTD.NS,Nifty 500,Automobile and Auto Components
 CEMPRO.NS,Nifty 500,Construction
 CENTRALBK.NS,Nifty 500,Financial Services
 CDSL.NS,Nifty 500,Financial Services
-CHALET.NS,Nifty 500,Consumer Services
+CMPDI.NS,Nifty 500,Services
 CHAMBLFERT.NS,Nifty 500,Chemicals
 CHENNPETRO.NS,Nifty 500,Oil Gas & Consumable Fuels
 CHOICEIN.NS,Nifty 500,Financial Services
@@ -119,6 +117,7 @@ CHOLAHLDNG.NS,Nifty 500,Financial Services
 CHOLAFIN.NS,Nifty 500,Financial Services
 CIPLA.NS,Nifty 500,Healthcare
 CUB.NS,Nifty 500,Financial Services
+CLEANMAX.NS,Nifty 500,Power
 CLEAN.NS,Nifty 500,Chemicals
 COALINDIA.NS,Nifty 500,Oil Gas & Consumable Fuels
 COCHINSHIP.NS,Nifty 500,Capital Goods
@@ -133,8 +132,8 @@ CRAFTSMAN.NS,Nifty 500,Automobile and Auto Components
 CREDITACC.NS,Nifty 500,Financial Services
 CROMPTON.NS,Nifty 500,Consumer Durables
 CUMMINSIND.NS,Nifty 500,Capital Goods
+CUPID.NS,Nifty 500,Fast Moving Consumer Goods
 CYIENT.NS,Nifty 500,Information Technology
-DCMSHRIRAM.NS,Nifty 500,Diversified
 DLF.NS,Nifty 500,Realty
 DOMS.NS,Nifty 500,Fast Moving Consumer Goods
 DABUR.NS,Nifty 500,Fast Moving Consumer Goods
@@ -151,6 +150,7 @@ DRREDDY.NS,Nifty 500,Healthcare
 DUMMYHEG.NS,Nifty 500,Metals & Mining
 EIDPARRY.NS,Nifty 500,Fast Moving Consumer Goods
 EIHOTEL.NS,Nifty 500,Consumer Services
+EMBASSY.NS,Nifty 500,Realty
 EICHERMOT.NS,Nifty 500,Automobile and Auto Components
 ELECON.NS,Nifty 500,Capital Goods
 ELGIEQUIP.NS,Nifty 500,Capital Goods
@@ -159,7 +159,6 @@ EMCURE.NS,Nifty 500,Healthcare
 EMMVEE.NS,Nifty 500,Capital Goods
 ENDURANCE.NS,Nifty 500,Automobile and Auto Components
 ENGINERSIN.NS,Nifty 500,Construction
-ERIS.NS,Nifty 500,Healthcare
 ESCORTS.NS,Nifty 500,Capital Goods
 ETERNAL.NS,Nifty 500,Consumer Services
 EXIDEIND.NS,Nifty 500,Automobile and Auto Components
@@ -171,6 +170,7 @@ FSL.NS,Nifty 500,Services
 FIVESTAR.NS,Nifty 500,Financial Services
 FORCEMOT.NS,Nifty 500,Automobile and Auto Components
 FORTIS.NS,Nifty 500,Healthcare
+FRACTAL.NS,Nifty 500,Information Technology
 GAIL.NS,Nifty 500,Oil Gas & Consumable Fuels
 GVT&D.NS,Nifty 500,Capital Goods
 GMRAIRPORT.NS,Nifty 500,Services
@@ -183,7 +183,6 @@ GLAND.NS,Nifty 500,Healthcare
 GLAXO.NS,Nifty 500,Healthcare
 GLENMARK.NS,Nifty 500,Healthcare
 MEDANTA.NS,Nifty 500,Healthcare
-GODIGIT.NS,Nifty 500,Financial Services
 GPIL.NS,Nifty 500,Capital Goods
 GODFRYPHLP.NS,Nifty 500,Fast Moving Consumer Goods
 GODREJCP.NS,Nifty 500,Fast Moving Consumer Goods
@@ -228,12 +227,12 @@ IDBI.NS,Nifty 500,Financial Services
 IDFCFIRSTB.NS,Nifty 500,Financial Services
 IFCI.NS,Nifty 500,Financial Services
 IIFL.NS,Nifty 500,Financial Services
+INOXINDIA.NS,Nifty 500,Capital Goods
 IRB.NS,Nifty 500,Construction
 IRCON.NS,Nifty 500,Construction
 ITCHOTELS.NS,Nifty 500,Consumer Services
 ITC.NS,Nifty 500,Fast Moving Consumer Goods
 ITI.NS,Nifty 500,Telecommunication
-INDGN.NS,Nifty 500,Healthcare
 INDIACEM.NS,Nifty 500,Construction Materials
 INDIAMART.NS,Nifty 500,Consumer Services
 INDIANB.NS,Nifty 500,Financial Services
@@ -260,7 +259,6 @@ JBMA.NS,Nifty 500,Automobile and Auto Components
 JKTYRE.NS,Nifty 500,Automobile and Auto Components
 JMFINANCIL.NS,Nifty 500,Financial Services
 JSWCEMENT.NS,Nifty 500,Construction Materials
-JSWDULUX.NS,Nifty 500,Consumer Durables
 JSWENERGY.NS,Nifty 500,Power
 JSWINFRA.NS,Nifty 500,Services
 JSWSTEEL.NS,Nifty 500,Metals & Mining
@@ -273,12 +271,12 @@ JINDALSTEL.NS,Nifty 500,Metals & Mining
 JIOFIN.NS,Nifty 500,Financial Services
 JUBLFOOD.NS,Nifty 500,Consumer Services
 JUBLINGREA.NS,Nifty 500,Chemicals
-JUBLPHARMA.NS,Nifty 500,Healthcare
 JWL.NS,Nifty 500,Capital Goods
 JYOTICNC.NS,Nifty 500,Capital Goods
 KPRMILL.NS,Nifty 500,Textiles
 KEI.NS,Nifty 500,Capital Goods
 KPITTECH.NS,Nifty 500,Information Technology
+KSB.NS,Nifty 500,Capital Goods
 KAJARIACER.NS,Nifty 500,Consumer Durables
 KPIL.NS,Nifty 500,Construction
 KALYANKJIL.NS,Nifty 500,Consumer Durables
@@ -286,6 +284,7 @@ KARURVYSYA.NS,Nifty 500,Financial Services
 KAYNES.NS,Nifty 500,Capital Goods
 KEC.NS,Nifty 500,Construction
 KFINTECH.NS,Nifty 500,Financial Services
+KIRLOSBROS.NS,Nifty 500,Capital Goods
 KIRLOSENG.NS,Nifty 500,Capital Goods
 KOTAKBANK.NS,Nifty 500,Financial Services
 KIMS.NS,Nifty 500,Healthcare
@@ -296,9 +295,7 @@ LICHSGFIN.NS,Nifty 500,Financial Services
 LTFOODS.NS,Nifty 500,Fast Moving Consumer Goods
 LTM.NS,Nifty 500,Information Technology
 LT.NS,Nifty 500,Construction
-LATENTVIEW.NS,Nifty 500,Information Technology
 LAURUSLABS.NS,Nifty 500,Healthcare
-THELEELA.NS,Nifty 500,Consumer Services
 LEMONTREE.NS,Nifty 500,Consumer Services
 LENSKART.NS,Nifty 500,Consumer Services
 LICI.NS,Nifty 500,Financial Services
@@ -308,6 +305,7 @@ LODHA.NS,Nifty 500,Realty
 LUPIN.NS,Nifty 500,Healthcare
 MMTC.NS,Nifty 500,Services
 MRF.NS,Nifty 500,Automobile and Auto Components
+MTARTECH.NS,Nifty 500,Capital Goods
 MGL.NS,Nifty 500,Oil Gas & Consumable Fuels
 M&MFIN.NS,Nifty 500,Financial Services
 M&M.NS,Nifty 500,Automobile and Auto Components
@@ -342,9 +340,7 @@ NAVINFLUOR.NS,Nifty 500,Chemicals
 NESTLEIND.NS,Nifty 500,Fast Moving Consumer Goods
 NETWEB.NS,Nifty 500,Information Technology
 NEULANDLAB.NS,Nifty 500,Healthcare
-NEWGEN.NS,Nifty 500,Information Technology
 NAM-INDIA.NS,Nifty 500,Financial Services
-NIVABUPA.NS,Nifty 500,Financial Services
 NUVAMA.NS,Nifty 500,Financial Services
 NUVOCO.NS,Nifty 500,Construction Materials
 OBEROIRLTY.NS,Nifty 500,Realty
@@ -367,7 +363,6 @@ PARADEEP.NS,Nifty 500,Chemicals
 PATANJALI.NS,Nifty 500,Fast Moving Consumer Goods
 PERSISTENT.NS,Nifty 500,Information Technology
 PETRONET.NS,Nifty 500,Oil Gas & Consumable Fuels
-PFIZER.NS,Nifty 500,Healthcare
 PHOENIXLTD.NS,Nifty 500,Realty
 PWL.NS,Nifty 500,Consumer Services
 PIDILITIND.NS,Nifty 500,Chemicals
@@ -382,6 +377,7 @@ POWERGRID.NS,Nifty 500,Power
 PREMIERENE.NS,Nifty 500,Capital Goods
 PRESTIGE.NS,Nifty 500,Realty
 PFOCUS.NS,Nifty 500,Media Entertainment & Publication
+PRIVISCL.NS,Nifty 500,Chemicals
 PNB.NS,Nifty 500,Financial Services
 RRKABEL.NS,Nifty 500,Capital Goods
 RBLBANK.NS,Nifty 500,Financial Services
@@ -396,18 +392,18 @@ RKFORGE.NS,Nifty 500,Automobile and Auto Components
 REDINGTON.NS,Nifty 500,Services
 RELIANCE.NS,Nifty 500,Oil Gas & Consumable Fuels
 RPOWER.NS,Nifty 500,Power
-SBFC.NS,Nifty 500,Financial Services
+RUBICON.NS,Nifty 500,Healthcare
 SBICARD.NS,Nifty 500,Financial Services
 SBILIFE.NS,Nifty 500,Financial Services
 SJVN.NS,Nifty 500,Power
+SHRIPISTON.NS,Nifty 500,Automobile and Auto Components
 SRF.NS,Nifty 500,Chemicals
 SAGILITY.NS,Nifty 500,Information Technology
 SAILIFE.NS,Nifty 500,Healthcare
 SAMMAANCAP.NS,Nifty 500,Financial Services
 MOTHERSON.NS,Nifty 500,Automobile and Auto Components
-SAPPHIRE.NS,Nifty 500,Consumer Services
+SANSERA.NS,Nifty 500,Automobile and Auto Components
 SARDAEN.NS,Nifty 500,Metals & Mining
-SAREGAMA.NS,Nifty 500,Media Entertainment & Publication
 SCHAEFFLER.NS,Nifty 500,Automobile and Auto Components
 SCHNEIDER.NS,Nifty 500,Capital Goods
 SCI.NS,Nifty 500,Services
@@ -420,22 +416,22 @@ SIGNATURE.NS,Nifty 500,Realty
 SOBHA.NS,Nifty 500,Realty
 SOLARINDS.NS,Nifty 500,Chemicals
 SONACOMS.NS,Nifty 500,Automobile and Auto Components
-SONATSOFTW.NS,Nifty 500,Information Technology
 STARHEALTH.NS,Nifty 500,Financial Services
 SBIN.NS,Nifty 500,Financial Services
 SAIL.NS,Nifty 500,Metals & Mining
+STLTECH.NS,Nifty 500,Telecommunication
 SUMICHEM.NS,Nifty 500,Chemicals
 SUNPHARMA.NS,Nifty 500,Healthcare
 SUNTV.NS,Nifty 500,Media Entertainment & Publication
 SUNDARMFIN.NS,Nifty 500,Financial Services
 SUPREMEIND.NS,Nifty 500,Capital Goods
-SPLPETRO.NS,Nifty 500,Chemicals
 SUZLON.NS,Nifty 500,Capital Goods
 SWANCORP.NS,Nifty 500,Chemicals
 SWIGGY.NS,Nifty 500,Consumer Services
 SYNGENE.NS,Nifty 500,Healthcare
 SYRMA.NS,Nifty 500,Capital Goods
 TBOTEK.NS,Nifty 500,Consumer Services
+TDPOWERSYS.NS,Nifty 500,Capital Goods
 TVSMOTOR.NS,Nifty 500,Automobile and Auto Components
 TATACAP.NS,Nifty 500,Financial Services
 TATACHEM.NS,Nifty 500,Chemicals
@@ -455,6 +451,7 @@ TECHNOE.NS,Nifty 500,Construction
 TEGA.NS,Nifty 500,Capital Goods
 TEJASNET.NS,Nifty 500,Telecommunication
 TENNIND.NS,Nifty 500,Automobile and Auto Components
+THANGAMAYL.NS,Nifty 500,Consumer Durables
 NIACL.NS,Nifty 500,Financial Services
 RAMCOCEM.NS,Nifty 500,Construction Materials
 THERMAX.NS,Nifty 500,Capital Goods
@@ -464,7 +461,6 @@ TITAN.NS,Nifty 500,Consumer Durables
 TORNTPHARM.NS,Nifty 500,Healthcare
 TORNTPOWER.NS,Nifty 500,Power
 TARIL.NS,Nifty 500,Capital Goods
-TRAVELFOOD.NS,Nifty 500,Consumer Services
 TRENT.NS,Nifty 500,Consumer Services
 TRIDENT.NS,Nifty 500,Textiles
 TRITURBINE.NS,Nifty 500,Capital Goods
@@ -481,7 +477,11 @@ URBANCO.NS,Nifty 500,Consumer Services
 USHAMART.NS,Nifty 500,Capital Goods
 VTL.NS,Nifty 500,Textiles
 VBL.NS,Nifty 500,Fast Moving Consumer Goods
+VAML.NS,Nifty 500,Metals & Mining
+VISL.NS,Nifty 500,Metals & Mining
 VEDL.NS,Nifty 500,Metals & Mining
+VOGL.NS,Nifty 500,Oil Gas & Consumable Fuels
+VEDPOWER.NS,Nifty 500,Power
 VIJAYA.NS,Nifty 500,Healthcare
 VMM.NS,Nifty 500,Consumer Services
 IDEA.NS,Nifty 500,Telecommunication
@@ -500,20 +500,17 @@ ZENSARTECH.NS,Nifty 500,Information Technology
 ZYDUSLIFE.NS,Nifty 500,Healthcare
 ZYDUSWELL.NS,Nifty 500,Fast Moving Consumer Goods
 ECLERX.NS,Nifty 500,Services
-ASKAUTOLTD.NS,Nifty Microcap 250,Automobile and Auto Components
 AXISCADES.NS,Nifty Microcap 250,Capital Goods
-AARTIDRUGS.NS,Nifty Microcap 250,Healthcare
 AARTIPHARM.NS,Nifty Microcap 250,Healthcare
+ABFRL.NS,Nifty Microcap 250,Consumer Services
+ABLBL.NS,Nifty Microcap 250,Consumer Services
 AVL.NS,Nifty Microcap 250,Consumer Services
 ADVENZYMES.NS,Nifty Microcap 250,Healthcare
 AEQUS.NS,Nifty Microcap 250,Capital Goods
-AETHER.NS,Nifty Microcap 250,Chemicals
-AHLUCONT.NS,Nifty Microcap 250,Construction
+AEROFLEX.NS,Nifty Microcap 250,Capital Goods
 AKUMS.NS,Nifty Microcap 250,Healthcare
-APLLTD.NS,Nifty Microcap 250,Healthcare
-ALIVUS.NS,Nifty Microcap 250,Healthcare
 ALKYLAMINE.NS,Nifty Microcap 250,Chemicals
-ALOKINDS.NS,Nifty Microcap 250,Textiles
+AMAGI.NS,Nifty Microcap 250,Information Technology
 APOLLO.NS,Nifty Microcap 250,Capital Goods
 ACI.NS,Nifty Microcap 250,Chemicals
 ARVINDFASN.NS,Nifty Microcap 250,Consumer Services
@@ -524,40 +521,38 @@ ASTRAMICRO.NS,Nifty Microcap 250,Capital Goods
 ATLANTAELE.NS,Nifty Microcap 250,Capital Goods
 AURIONPRO.NS,Nifty Microcap 250,Information Technology
 AVALON.NS,Nifty Microcap 250,Capital Goods
-AVANTIFEED.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 CCAVENUE.NS,Nifty Microcap 250,Financial Services
-AWFIS.NS,Nifty Microcap 250,Services
-AZAD.NS,Nifty Microcap 250,Capital Goods
-BAJAJELEC.NS,Nifty Microcap 250,Consumer Durables
+BAJAJCON.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 BALAMINES.NS,Nifty Microcap 250,Chemicals
 BALUFORGE.NS,Nifty Microcap 250,Capital Goods
 BANCOINDIA.NS,Nifty Microcap 250,Automobile and Auto Components
 BIRLACORPN.NS,Nifty Microcap 250,Construction Materials
-BBOX.NS,Nifty Microcap 250,Information Technology
 BLACKBUCK.NS,Nifty Microcap 250,Services
+BLUEJET.NS,Nifty Microcap 250,Healthcare
 BLUESTONE.NS,Nifty Microcap 250,Consumer Durables
 BORORENEW.NS,Nifty Microcap 250,Capital Goods
+MAPMYINDIA.NS,Nifty Microcap 250,Information Technology
+CMRGREEN.NS,Nifty Microcap 250,Capital Goods
 CMSINFO.NS,Nifty Microcap 250,Services
-CORONA.NS,Nifty Microcap 250,Healthcare
 CSBBANK.NS,Nifty Microcap 250,Financial Services
 CAMPUS.NS,Nifty Microcap 250,Consumer Durables
 CRAMC.NS,Nifty Microcap 250,Financial Services
 CAPILLARY.NS,Nifty Microcap 250,Information Technology
+CEIGALL.NS,Nifty Microcap 250,Construction
 CELLO.NS,Nifty Microcap 250,Consumer Durables
-CENTURYPLY.NS,Nifty Microcap 250,Consumer Durables
+CENTUM.NS,Nifty Microcap 250,Capital Goods
 CERA.NS,Nifty Microcap 250,Consumer Durables
-CRIZAC.NS,Nifty Microcap 250,Consumer Services
-CUPID.NS,Nifty Microcap 250,Fast Moving Consumer Goods
+CHALET.NS,Nifty Microcap 250,Consumer Services
 DCBBANK.NS,Nifty Microcap 250,Financial Services
 DATAMATICS.NS,Nifty Microcap 250,Information Technology
 DIACABS.NS,Nifty Microcap 250,Capital Goods
 DBL.NS,Nifty Microcap 250,Construction
-AGARWALEYE.NS,Nifty Microcap 250,Healthcare
 DUMMYINGL1.NS,Nifty Microcap 250,Healthcare
 DUMMYINGL2.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 DUMMYINXGN.NS,Nifty Microcap 250,Construction
 DUMMYTRVN.NS,Nifty Microcap 250,Capital Goods
 DYNAMATECH.NS,Nifty Microcap 250,Capital Goods
+E2E.NS,Nifty Microcap 250,Information Technology
 EPL.NS,Nifty Microcap 250,Capital Goods
 EDELWEISS.NS,Nifty Microcap 250,Financial Services
 EMIL.NS,Nifty Microcap 250,Consumer Services
@@ -567,72 +562,71 @@ EMBDL.NS,Nifty Microcap 250,Realty
 ENTERO.NS,Nifty Microcap 250,Consumer Services
 EIEL.NS,Nifty Microcap 250,Utilities
 EQUITASBNK.NS,Nifty Microcap 250,Financial Services
-ETHOSLTD.NS,Nifty Microcap 250,Consumer Durables
-EUREKAFORB.NS,Nifty Microcap 250,Consumer Durables
+ERIS.NS,Nifty Microcap 250,Healthcare
 FEDFINA.NS,Nifty Microcap 250,Financial Services
 FIEMIND.NS,Nifty Microcap 250,Automobile and Auto Components
 FINPIPE.NS,Nifty Microcap 250,Capital Goods
 UTLSOLAR.NS,Nifty Microcap 250,Capital Goods
-GHCL.NS,Nifty Microcap 250,Chemicals
-GMMPFAUDLR.NS,Nifty Microcap 250,Capital Goods
 GMRP&UI.NS,Nifty Microcap 250,Power
+EBGNG.NS,Nifty Microcap 250,Information Technology
 GRWRHITECH.NS,Nifty Microcap 250,Capital Goods
+GENUSPOWER.NS,Nifty Microcap 250,Capital Goods
 GODREJAGRO.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 GOKEX.NS,Nifty Microcap 250,Textiles
 GOKULAGRO.NS,Nifty Microcap 250,Fast Moving Consumer Goods
+GOLDIAM.NS,Nifty Microcap 250,Consumer Durables
 GREAVESCOT.NS,Nifty Microcap 250,Capital Goods
 GRINDWELL.NS,Nifty Microcap 250,Capital Goods
+GUJALKALI.NS,Nifty Microcap 250,Chemicals
 GAEL.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 GNFC.NS,Nifty Microcap 250,Chemicals
 GPPL.NS,Nifty Microcap 250,Services
 GSFC.NS,Nifty Microcap 250,Chemicals
 HGINFRA.NS,Nifty Microcap 250,Construction
 HAPPSTMNDS.NS,Nifty Microcap 250,Information Technology
+HAPPYFORGE.NS,Nifty Microcap 250,Capital Goods
 HCG.NS,Nifty Microcap 250,Healthcare
-HEMIPROP.NS,Nifty Microcap 250,Services
 HERITGFOOD.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 HCC.NS,Nifty Microcap 250,Construction
 IFBIND.NS,Nifty Microcap 250,Consumer Durables
 IIFLCAPS.NS,Nifty Microcap 250,Financial Services
-INOXINDIA.NS,Nifty Microcap 250,Capital Goods
+INDGN.NS,Nifty Microcap 250,Healthcare
 INDIAGLYCO.NS,Nifty Microcap 250,Fast Moving Consumer Goods
-INDIASHLTR.NS,Nifty Microcap 250,Financial Services
 IMFA.NS,Nifty Microcap 250,Metals & Mining
 INDIGOPNTS.NS,Nifty Microcap 250,Consumer Durables
 ICIL.NS,Nifty Microcap 250,Textiles
-INOXGREEN.NS,Nifty Microcap 250,Services
 IONEXCHANG.NS,Nifty Microcap 250,Utilities
 JAIBALAJI.NS,Nifty Microcap 250,Metals & Mining
-JKLAKSHMI.NS,Nifty Microcap 250,Construction Materials
 JKPAPER.NS,Nifty Microcap 250,Forest Materials
 JAMNAAUTO.NS,Nifty Microcap 250,Automobile and Auto Components
 JSFB.NS,Nifty Microcap 250,Financial Services
 JAYNECOIND.NS,Nifty Microcap 250,Capital Goods
 JSLL.NS,Nifty Microcap 250,Consumer Services
-JLHL.NS,Nifty Microcap 250,Healthcare
+JUBLPHARMA.NS,Nifty Microcap 250,Healthcare
 JUSTDIAL.NS,Nifty Microcap 250,Consumer Services
 JYOTHYLAB.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 KNRCON.NS,Nifty Microcap 250,Construction
 KPIGREEN.NS,Nifty Microcap 250,Power
 KRBL.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 KRN.NS,Nifty Microcap 250,Capital Goods
-KSB.NS,Nifty Microcap 250,Capital Goods
 KANSAINER.NS,Nifty Microcap 250,Consumer Durables
 KTKBANK.NS,Nifty Microcap 250,Financial Services
 KSCL.NS,Nifty Microcap 250,Fast Moving Consumer Goods
-KIRLOSBROS.NS,Nifty Microcap 250,Capital Goods
 KIRLPNU.NS,Nifty Microcap 250,Capital Goods
 KITEX.NS,Nifty Microcap 250,Textiles
+KMEW.NS,Nifty Microcap 250,Services
+KWIL.NS,Nifty Microcap 250,Fast Moving Consumer Goods
+LATENTVIEW.NS,Nifty Microcap 250,Information Technology
 LXCHEM.NS,Nifty Microcap 250,Chemicals
 IXIGO.NS,Nifty Microcap 250,Consumer Services
+THELEELA.NS,Nifty Microcap 250,Consumer Services
 LLOYDSENGG.NS,Nifty Microcap 250,Capital Goods
 LLOYDSENT.NS,Nifty Microcap 250,Metals & Mining
 LUMAXTECH.NS,Nifty Microcap 250,Automobile and Auto Components
+LUMAXIND.NS,Nifty Microcap 250,Automobile and Auto Components
 MOIL.NS,Nifty Microcap 250,Metals & Mining
 MSTCLTD.NS,Nifty Microcap 250,Services
-MTARTECH.NS,Nifty Microcap 250,Capital Goods
-MAHSCOOTER.NS,Nifty Microcap 250,Financial Services
-MAHSEAMLES.NS,Nifty Microcap 250,Capital Goods
+MBAPL.NS,Nifty Microcap 250,Chemicals
 MANORAMA.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 MARKSANS.NS,Nifty Microcap 250,Healthcare
 MASTEK.NS,Nifty Microcap 250,Information Technology
@@ -641,28 +635,32 @@ METROPOLIS.NS,Nifty Microcap 250,Healthcare
 MIDHANI.NS,Nifty Microcap 250,Capital Goods
 BECTORFOOD.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 NEOGEN.NS,Nifty Microcap 250,Chemicals
-NESCO.NS,Nifty Microcap 250,Services
 NFL.NS,Nifty Microcap 250,Chemicals
 NAZARA.NS,Nifty Microcap 250,Media Entertainment & Publication
+NEPHROPLUS.NS,Nifty Microcap 250,Healthcare
 NETWORK18.NS,Nifty Microcap 250,Media Entertainment & Publication
-OPTIEMUS.NS,Nifty Microcap 250,Telecommunication
-ORIENTCEM.NS,Nifty Microcap 250,Construction Materials
-ORKLAINDIA.NS,Nifty Microcap 250,Fast Moving Consumer Goods
+NEWGEN.NS,Nifty Microcap 250,Information Technology
+NIVABUPA.NS,Nifty Microcap 250,Financial Services
+NORTHARC.NS,Nifty Microcap 250,Financial Services
+OMNI.NS,Nifty Microcap 250,Capital Goods
+KISSHT.NS,Nifty Microcap 250,Financial Services
 OSWALPUMPS.NS,Nifty Microcap 250,Capital Goods
 PNGJL.NS,Nifty Microcap 250,Consumer Durables
 PCJEWELLER.NS,Nifty Microcap 250,Consumer Durables
+PDSL.NS,Nifty Microcap 250,Textiles
 PNCINFRA.NS,Nifty Microcap 250,Construction
 PTC.NS,Nifty Microcap 250,Power
+PAISALO.NS,Nifty Microcap 250,Financial Services
 PARAS.NS,Nifty Microcap 250,Capital Goods
 PARKHOSPS.NS,Nifty Microcap 250,Healthcare
 PGIL.NS,Nifty Microcap 250,Textiles
 PICCADIL.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 POWERMECH.NS,Nifty Microcap 250,Construction
+POWERICA.NS,Nifty Microcap 250,Capital Goods
 PRAJIND.NS,Nifty Microcap 250,Capital Goods
+PRECWIRE.NS,Nifty Microcap 250,Capital Goods
 PRICOLLTD.NS,Nifty Microcap 250,Automobile and Auto Components
-PRSMJOHNSN.NS,Nifty Microcap 250,Construction Materials
-PRIVISCL.NS,Nifty Microcap 250,Chemicals
-PRUDENT.NS,Nifty Microcap 250,Financial Services
+PGHL.NS,Nifty Microcap 250,Healthcare
 PURVA.NS,Nifty Microcap 250,Realty
 QPOWER.NS,Nifty Microcap 250,Capital Goods
 QUESS.NS,Nifty Microcap 250,Services
@@ -671,69 +669,71 @@ RALLIS.NS,Nifty Microcap 250,Chemicals
 RCF.NS,Nifty Microcap 250,Chemicals
 RATEGAIN.NS,Nifty Microcap 250,Information Technology
 RATNAMANI.NS,Nifty Microcap 250,Capital Goods
-RTNINDIA.NS,Nifty Microcap 250,Consumer Services
 RTNPOWER.NS,Nifty Microcap 250,Power
 RAYMONDLSL.NS,Nifty Microcap 250,Textiles
-REDTAPE.NS,Nifty Microcap 250,Consumer Durables
 REFEX.NS,Nifty Microcap 250,Utilities
 RELAXO.NS,Nifty Microcap 250,Consumer Durables
 RELIGARE.NS,Nifty Microcap 250,Financial Services
+RESPONIND.NS,Nifty Microcap 250,Consumer Durables
 RBA.NS,Nifty Microcap 250,Consumer Services
 ROUTE.NS,Nifty Microcap 250,Telecommunication
-RUBICON.NS,Nifty Microcap 250,Healthcare
-SKFINDUS.NS,Nifty Microcap 250,Capital Goods
-SKFINDIA.NS,Nifty Microcap 250,Automobile and Auto Components
+SJS.NS,Nifty Microcap 250,Automobile and Auto Components
+SBFC.NS,Nifty Microcap 250,Financial Services
+SEDEMAC.NS,Nifty Microcap 250,Automobile and Auto Components
+SGMART.NS,Nifty Microcap 250,Metals & Mining
+SIGMAADV.NS,Nifty Microcap 250,Capital Goods
 SKYGOLD.NS,Nifty Microcap 250,Consumer Durables
 SMLMAH.NS,Nifty Microcap 250,Capital Goods
-SHRIPISTON.NS,Nifty Microcap 250,Automobile and Auto Components
 LOTUSDEV.NS,Nifty Microcap 250,Realty
-SAATVIKGL.NS,Nifty Microcap 250,Capital Goods
 SAFARI.NS,Nifty Microcap 250,Consumer Durables
 SAMHI.NS,Nifty Microcap 250,Consumer Services
 SANDUMA.NS,Nifty Microcap 250,Metals & Mining
-SANOFICONR.NS,Nifty Microcap 250,Healthcare
-SANSERA.NS,Nifty Microcap 250,Automobile and Auto Components
+SAPPHIRE.NS,Nifty Microcap 250,Consumer Services
+SAREGAMA.NS,Nifty Microcap 250,Media Entertainment & Publication
 SENCO.NS,Nifty Microcap 250,Consumer Durables
-STYL.NS,Nifty Microcap 250,Financial Services
+SENORES.NS,Nifty Microcap 250,Healthcare
+SHADOWFAX.NS,Nifty Microcap 250,Services
 SHAILY.NS,Nifty Microcap 250,Consumer Durables
 SHAKTIPUMP.NS,Nifty Microcap 250,Capital Goods
 SHARDACROP.NS,Nifty Microcap 250,Chemicals
 SHAREINDIA.NS,Nifty Microcap 250,Financial Services
 SFL.NS,Nifty Microcap 250,Consumer Durables
+SHILCTECH.NS,Nifty Microcap 250,Capital Goods
 SHILPAMED.NS,Nifty Microcap 250,Healthcare
 RENUKA.NS,Nifty Microcap 250,Fast Moving Consumer Goods
+SHREEJISPG.NS,Nifty Microcap 250,Services
 SKIPPER.NS,Nifty Microcap 250,Capital Goods
-SMARTWORKS.NS,Nifty Microcap 250,Services
+SONATSOFTW.NS,Nifty Microcap 250,Information Technology
 SOUTHBANK.NS,Nifty Microcap 250,Financial Services
-STARCEMENT.NS,Nifty Microcap 250,Construction Materials
 SWSOLAR.NS,Nifty Microcap 250,Construction
-STLTECH.NS,Nifty Microcap 250,Telecommunication
 STAR.NS,Nifty Microcap 250,Healthcare
-STYRENIX.NS,Nifty Microcap 250,Chemicals
+STYLAMIND.NS,Nifty Microcap 250,Consumer Durables
 SUBROS.NS,Nifty Microcap 250,Capital Goods
 SUDARSCHEM.NS,Nifty Microcap 250,Chemicals
 SUDEEPPHRM.NS,Nifty Microcap 250,Chemicals
 SPARC.NS,Nifty Microcap 250,Healthcare
+SUNDRMFAST.NS,Nifty Microcap 250,Automobile and Auto Components
+SUNFLAG.NS,Nifty Microcap 250,Capital Goods
 SUNTECK.NS,Nifty Microcap 250,Realty
+SPLPETRO.NS,Nifty Microcap 250,Chemicals
 SUPRIYA.NS,Nifty Microcap 250,Healthcare
 SURYAROSNI.NS,Nifty Microcap 250,Capital Goods
+SUVEN.NS,Nifty Microcap 250,Healthcare
 TARC.NS,Nifty Microcap 250,Realty
-TDPOWERSYS.NS,Nifty Microcap 250,Capital Goods
-TSFINV.NS,Nifty Microcap 250,Financial Services
+TTKPRESTIG.NS,Nifty Microcap 250,Consumer Durables
 TVSSCS.NS,Nifty Microcap 250,Services
 TMB.NS,Nifty Microcap 250,Financial Services
 TANLA.NS,Nifty Microcap 250,Information Technology
 TEXRAIL.NS,Nifty Microcap 250,Capital Goods
-THANGAMAYL.NS,Nifty Microcap 250,Consumer Durables
-ANUP.NS,Nifty Microcap 250,Capital Goods
 THOMASCOOK.NS,Nifty Microcap 250,Consumer Services
 THYROCARE.NS,Nifty Microcap 250,Healthcare
 TI.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 TIMETECHNO.NS,Nifty Microcap 250,Capital Goods
+TIMEX.NS,Nifty Microcap 250,Consumer Durables
 TIPSMUSIC.NS,Nifty Microcap 250,Media Entertainment & Publication
 TRANSRAILL.NS,Nifty Microcap 250,Capital Goods
-TRIVENI.NS,Nifty Microcap 250,Fast Moving Consumer Goods
 UJJIVANSFB.NS,Nifty Microcap 250,Financial Services
+UNIMECH.NS,Nifty Microcap 250,Capital Goods
 VGUARD.NS,Nifty Microcap 250,Consumer Durables
 VMART.NS,Nifty Microcap 250,Consumer Services
 VIPIND.NS,Nifty Microcap 250,Consumer Durables
@@ -741,8 +741,8 @@ V2RETAIL.NS,Nifty Microcap 250,Consumer Services
 DBREALTY.NS,Nifty Microcap 250,Realty
 WABAG.NS,Nifty Microcap 250,Utilities
 VAIBHAVGBL.NS,Nifty Microcap 250,Consumer Durables
-VARROC.NS,Nifty Microcap 250,Automobile and Auto Components
 MANYAVAR.NS,Nifty Microcap 250,Consumer Services
+VESUVIUS.NS,Nifty Microcap 250,Capital Goods
 VIKRAMSOLR.NS,Nifty Microcap 250,Capital Goods
 VIYASH.NS,Nifty Microcap 250,Healthcare
 VOLTAMP.NS,Nifty Microcap 250,Capital Goods
@@ -754,17 +754,19 @@ WELENT.NS,Nifty Microcap 250,Construction
 WESTLIFE.NS,Nifty Microcap 250,Consumer Services
 YATHARTH.NS,Nifty Microcap 250,Healthcare
 ZAGGLE.NS,Nifty Microcap 250,Information Technology
+COREIN.NS,NSE SME Emerge,SME (unclassified)
+POOJALOGIS.NS,NSE SME Emerge,SME (unclassified)
 PARTY-RE.NS,NSE SME Emerge,SME (unclassified)
 AXIOMGAS.NS,NSE SME Emerge,SME (unclassified)
-KHERIAAUTO.NS,NSE SME Emerge,SME (unclassified)
 SPECTRAA.NS,NSE SME Emerge,SME (unclassified)
+KHERIAAUTO.NS,NSE SME Emerge,SME (unclassified)
 VINOD.NS,NSE SME Emerge,SME (unclassified)
 QUALIANCE.NS,NSE SME Emerge,SME (unclassified)
-SHANTIINOR.NS,NSE SME Emerge,SME (unclassified)
 ASHUTOSH.NS,NSE SME Emerge,SME (unclassified)
+SHANTIINOR.NS,NSE SME Emerge,SME (unclassified)
 SUMAX.NS,NSE SME Emerge,SME (unclassified)
-MADHURKNIT.NS,NSE SME Emerge,SME (unclassified)
 ABH.NS,NSE SME Emerge,SME (unclassified)
+MADHURKNIT.NS,NSE SME Emerge,SME (unclassified)
 FASCINATE.NS,NSE SME Emerge,SME (unclassified)
 SKYTECH.NS,NSE SME Emerge,SME (unclassified)
 CREDENT.NS,NSE SME Emerge,SME (unclassified)
@@ -782,8 +784,8 @@ AVIENCE.NS,NSE SME Emerge,SME (unclassified)
 CLAYCRAFT.NS,NSE SME Emerge,SME (unclassified)
 UTKAL.NS,NSE SME Emerge,SME (unclassified)
 GENXAI.NS,NSE SME Emerge,SME (unclassified)
-QLINE.NS,NSE SME Emerge,SME (unclassified)
 BMLL.NS,NSE SME Emerge,SME (unclassified)
+QLINE.NS,NSE SME Emerge,SME (unclassified)
 TEAMTECH.NS,NSE SME Emerge,SME (unclassified)
 NFPSAMPOOR.NS,NSE SME Emerge,SME (unclassified)
 RFBL.NS,NSE SME Emerge,SME (unclassified)
@@ -801,8 +803,8 @@ MOBILISE.NS,NSE SME Emerge,SME (unclassified)
 MANILAM.NS,NSE SME Emerge,SME (unclassified)
 MARUSHIKA.NS,NSE SME Emerge,SME (unclassified)
 BIOPOL.NS,NSE SME Emerge,SME (unclassified)
-BRANDMAN.NS,NSE SME Emerge,SME (unclassified)
 GJL.NS,NSE SME Emerge,SME (unclassified)
+BRANDMAN.NS,NSE SME Emerge,SME (unclassified)
 CKKRETAIL.NS,NSE SME Emerge,SME (unclassified)
 KRMAYURVED.NS,NSE SME Emerge,SME (unclassified)
 ARMOUR.NS,NSE SME Emerge,SME (unclassified)
@@ -810,12 +812,12 @@ AVANA.NS,NSE SME Emerge,SME (unclassified)
 VICTORYEV.NS,NSE SME Emerge,SME (unclassified)
 E2ERAIL.NS,NSE SME Emerge,SME (unclassified)
 DHARARAIL.NS,NSE SME Emerge,SME (unclassified)
-SHYAMDHANI.NS,NSE SME Emerge,SME (unclassified)
-SOCL.NS,NSE SME Emerge,SME (unclassified)
 EPWINDIA.NS,NSE SME Emerge,SME (unclassified)
+SOCL.NS,NSE SME Emerge,SME (unclassified)
+SHYAMDHANI.NS,NSE SME Emerge,SME (unclassified)
 MARC.NS,NSE SME Emerge,SME (unclassified)
-ASHWINI.NS,NSE SME Emerge,SME (unclassified)
 EXIMROUTES.NS,NSE SME Emerge,SME (unclassified)
+ASHWINI.NS,NSE SME Emerge,SME (unclassified)
 FWSTC.NS,NSE SME Emerge,SME (unclassified)
 ENCOMPAS.NS,NSE SME Emerge,SME (unclassified)
 SHRIKANHA.NS,NSE SME Emerge,SME (unclassified)
@@ -828,11 +830,11 @@ FINBUD.NS,NSE SME Emerge,SME (unclassified)
 SHETHJI.NS,NSE SME Emerge,SME (unclassified)
 JAYESH.NS,NSE SME Emerge,SME (unclassified)
 GREENLEAF.NS,NSE SME Emerge,SME (unclassified)
-MUNISH.NS,NSE SME Emerge,SME (unclassified)
 SHEEL.NS,NSE SME Emerge,SME (unclassified)
 BAGDIGITAL.NS,NSE SME Emerge,SME (unclassified)
-SUBAHOTELS.NS,NSE SME Emerge,SME (unclassified)
+MUNISH.NS,NSE SME Emerge,SME (unclassified)
 VIJAYPD.NS,NSE SME Emerge,SME (unclassified)
+SUBAHOTELS.NS,NSE SME Emerge,SME (unclassified)
 MPEL.NS,NSE SME Emerge,SME (unclassified)
 GURUNANAK.NS,NSE SME Emerge,SME (unclassified)
 MGSL.NS,NSE SME Emerge,SME (unclassified)
@@ -847,9 +849,9 @@ OPTIVALUE.NS,NSE SME Emerge,SME (unclassified)
 SNEHAA.NS,NSE SME Emerge,SME (unclassified)
 SATTVAENGG.NS,NSE SME Emerge,SME (unclassified)
 CURRENT.NS,NSE SME Emerge,SME (unclassified)
-SHIVASHRIT.NS,NSE SME Emerge,SME (unclassified)
-ANONDITA.NS,NSE SME Emerge,SME (unclassified)
 CLASSICEIL.NS,NSE SME Emerge,SME (unclassified)
+ANONDITA.NS,NSE SME Emerge,SME (unclassified)
+SHIVASHRIT.NS,NSE SME Emerge,SME (unclassified)
 ARCIIL.NS,NSE SME Emerge,SME (unclassified)
 STUDIOLSD.NS,NSE SME Emerge,SME (unclassified)
 MRIL.NS,NSE SME Emerge,SME (unclassified)
@@ -862,8 +864,8 @@ AARADHYA.NS,NSE SME Emerge,SME (unclassified)
 BHADORA.NS,NSE SME Emerge,SME (unclassified)
 JYOTIGLOBL.NS,NSE SME Emerge,SME (unclassified)
 FLYSBS.NS,NSE SME Emerge,SME (unclassified)
-RNPL.NS,NSE SME Emerge,SME (unclassified)
 CUDML.NS,NSE SME Emerge,SME (unclassified)
+RNPL.NS,NSE SME Emerge,SME (unclassified)
 KAYTEX.NS,NSE SME Emerge,SME (unclassified)
 SELLOWRAP.NS,NSE SME Emerge,SME (unclassified)
 TSC.NS,NSE SME Emerge,SME (unclassified)
@@ -872,21 +874,21 @@ SPUNWEB.NS,NSE SME Emerge,SME (unclassified)
 SMARTEN.NS,NSE SME Emerge,SME (unclassified)
 WHITEFORCE.NS,NSE SME Emerge,SME (unclassified)
 ETL.NS,NSE SME Emerge,SME (unclassified)
+CEDAAR.NS,NSE SME Emerge,SME (unclassified)
 PUSHPA.NS,NSE SME Emerge,SME (unclassified)
 SILKY.NS,NSE SME Emerge,SME (unclassified)
-CEDAAR.NS,NSE SME Emerge,SME (unclassified)
 PROFX.NS,NSE SME Emerge,SME (unclassified)
 MMEL.NS,NSE SME Emerge,SME (unclassified)
-SUNTECH.NS,NSE SME Emerge,SME (unclassified)
 RTL.NS,NSE SME Emerge,SME (unclassified)
+SUNTECH.NS,NSE SME Emerge,SME (unclassified)
 SHKSIL.NS,NSE SME Emerge,SME (unclassified)
+SAFEENTP.NS,NSE SME Emerge,SME (unclassified)
 AAKAAR.NS,NSE SME Emerge,SME (unclassified)
 MAYASHEEL.NS,NSE SME Emerge,SME (unclassified)
-SAFEENTP.NS,NSE SME Emerge,SME (unclassified)
 INFLUX.NS,NSE SME Emerge,SME (unclassified)
 EEPL.NS,NSE SME Emerge,SME (unclassified)
-PATILAUTOM.NS,NSE SME Emerge,SME (unclassified)
 SAMAY.NS,NSE SME Emerge,SME (unclassified)
+PATILAUTOM.NS,NSE SME Emerge,SME (unclassified)
 MONOLITH.NS,NSE SME Emerge,SME (unclassified)
 JAINIK.NS,NSE SME Emerge,SME (unclassified)
 SACHEEROME.NS,NSE SME Emerge,SME (unclassified)
@@ -929,14 +931,14 @@ DELTIC.NS,NSE SME Emerge,SME (unclassified)
 ANYA.NS,NSE SME Emerge,SME (unclassified)
 NMSTEEL.NS,NSE SME Emerge,SME (unclassified)
 IDENTICAL.NS,NSE SME Emerge,SME (unclassified)
-SFML.NS,NSE SME Emerge,SME (unclassified)
 PURPLEUTED.NS,NSE SME Emerge,SME (unclassified)
+SFML.NS,NSE SME Emerge,SME (unclassified)
 DHANLAXMI.NS,NSE SME Emerge,SME (unclassified)
 ETML.NS,NSE SME Emerge,SME (unclassified)
 GANESHIN.NS,NSE SME Emerge,SME (unclassified)
 AGARWALTUF.NS,NSE SME Emerge,SME (unclassified)
-ABHAPOWER.NS,NSE SME Emerge,SME (unclassified)
 APEXECO.NS,NSE SME Emerge,SME (unclassified)
+ABHAPOWER.NS,NSE SME Emerge,SME (unclassified)
 C2C.NS,NSE SME Emerge,SME (unclassified)
 RAJPUTANA.NS,NSE SME Emerge,SME (unclassified)
 ITTL.NS,NSE SME Emerge,SME (unclassified)
@@ -945,8 +947,8 @@ ONYX.NS,NSE SME Emerge,SME (unclassified)
 NEELAM.NS,NSE SME Emerge,SME (unclassified)
 USHAFIN.NS,NSE SME Emerge,SME (unclassified)
 UHTL.NS,NSE SME Emerge,SME (unclassified)
-OBSCP.NS,NSE SME Emerge,SME (unclassified)
 DANISH.NS,NSE SME Emerge,SME (unclassified)
+OBSCP.NS,NSE SME Emerge,SME (unclassified)
 PREMIUM.NS,NSE SME Emerge,SME (unclassified)
 FRESHARA.NS,NSE SME Emerge,SME (unclassified)
 LAKSHYA.NS,NSE SME Emerge,SME (unclassified)
@@ -954,59 +956,59 @@ PRANIK.NS,NSE SME Emerge,SME (unclassified)
 PARAMOUNT.NS,NSE SME Emerge,SME (unclassified)
 SAJHOTELS.NS,NSE SME Emerge,SME (unclassified)
 HVAX.NS,NSE SME Emerge,SME (unclassified)
-FORGEAUTO.NS,NSE SME Emerge,SME (unclassified)
 DIVYADHAN.NS,NSE SME Emerge,SME (unclassified)
+FORGEAUTO.NS,NSE SME Emerge,SME (unclassified)
 SAHASRA.NS,NSE SME Emerge,SME (unclassified)
-TECHERA.NS,NSE SME Emerge,SME (unclassified)
 UNILEX.NS,NSE SME Emerge,SME (unclassified)
 THESL.NS,NSE SME Emerge,SME (unclassified)
-WOL3D.NS,NSE SME Emerge,SME (unclassified)
+TECHERA.NS,NSE SME Emerge,SME (unclassified)
 RAPPID.NS,NSE SME Emerge,SME (unclassified)
-PHOGLOBAL.NS,NSE SME Emerge,SME (unclassified)
+WOL3D.NS,NSE SME Emerge,SME (unclassified)
 SDREAMS.NS,NSE SME Emerge,SME (unclassified)
-AVIANSH.NS,NSE SME Emerge,SME (unclassified)
 BIKEWO.NS,NSE SME Emerge,SME (unclassified)
+AVIANSH.NS,NSE SME Emerge,SME (unclassified)
+PHOGLOBAL.NS,NSE SME Emerge,SME (unclassified)
 KALANA.NS,NSE SME Emerge,SME (unclassified)
 PSFL.NS,NSE SME Emerge,SME (unclassified)
-OSELDEVICE.NS,NSE SME Emerge,SME (unclassified)
-DECCANTRAN.NS,NSE SME Emerge,SME (unclassified)
 ENVIRO.NS,NSE SME Emerge,SME (unclassified)
+DECCANTRAN.NS,NSE SME Emerge,SME (unclassified)
 PELATRO.NS,NSE SME Emerge,SME (unclassified)
+OSELDEVICE.NS,NSE SME Emerge,SME (unclassified)
 EXCELLENT.NS,NSE SME Emerge,SME (unclassified)
 INNOMET.NS,NSE SME Emerge,SME (unclassified)
 SPPPOLY.NS,NSE SME Emerge,SME (unclassified)
-SHUBHSHREE.NS,NSE SME Emerge,SME (unclassified)
-AUSL.NS,NSE SME Emerge,SME (unclassified)
 GAJANAND.NS,NSE SME Emerge,SME (unclassified)
+AUSL.NS,NSE SME Emerge,SME (unclassified)
+SHUBHSHREE.NS,NSE SME Emerge,SME (unclassified)
 VIESL.NS,NSE SME Emerge,SME (unclassified)
 MYMUDRA.NS,NSE SME Emerge,SME (unclassified)
 NAMOEWASTE.NS,NSE SME Emerge,SME (unclassified)
 JEYYAM.NS,NSE SME Emerge,SME (unclassified)
 BOSS.NS,NSE SME Emerge,SME (unclassified)
-PARAMATRIX.NS,NSE SME Emerge,SME (unclassified)
 AERON.NS,NSE SME Emerge,SME (unclassified)
-JAYBEE.NS,NSE SME Emerge,SME (unclassified)
+PARAMATRIX.NS,NSE SME Emerge,SME (unclassified)
 IPHL.NS,NSE SME Emerge,SME (unclassified)
+JAYBEE.NS,NSE SME Emerge,SME (unclassified)
 VDEAL.NS,NSE SME Emerge,SME (unclassified)
 QVCEL.NS,NSE SME Emerge,SME (unclassified)
 IDEALTECHO.NS,NSE SME Emerge,SME (unclassified)
 FORCAS.NS,NSE SME Emerge,SME (unclassified)
 BRACEPORT.NS,NSE SME Emerge,SME (unclassified)
 BALCO.NS,NSE SME Emerge,SME (unclassified)
-SUNLITE.NS,NSE SME Emerge,SME (unclassified)
 POSITRON.NS,NSE SME Emerge,SME (unclassified)
+SUNLITE.NS,NSE SME Emerge,SME (unclassified)
 AESTHETIK.NS,NSE SME Emerge,SME (unclassified)
 PPSL.NS,NSE SME Emerge,SME (unclassified)
 DHARIWAL.NS,NSE SME Emerge,SME (unclassified)
 UTSSAV.NS,NSE SME Emerge,SME (unclassified)
-BULKCORP.NS,NSE SME Emerge,SME (unclassified)
-ASHALOG.NS,NSE SME Emerge,SME (unclassified)
 SSEGL.NS,NSE SME Emerge,SME (unclassified)
+ASHALOG.NS,NSE SME Emerge,SME (unclassified)
+BULKCORP.NS,NSE SME Emerge,SME (unclassified)
 RAJINDLTD.NS,NSE SME Emerge,SME (unclassified)
 ESPRIT.NS,NSE SME Emerge,SME (unclassified)
 SATECH.NS,NSE SME Emerge,SME (unclassified)
-TROM.NS,NSE SME Emerge,SME (unclassified)
 APRAMEYA.NS,NSE SME Emerge,SME (unclassified)
+TROM.NS,NSE SME Emerge,SME (unclassified)
 MIEL.NS,NSE SME Emerge,SME (unclassified)
 CHETANA.NS,NSE SME Emerge,SME (unclassified)
 VLINFRA.NS,NSE SME Emerge,SME (unclassified)
@@ -1022,17 +1024,17 @@ EFFWA.NS,NSE SME Emerge,SME (unclassified)
 DHANSA.NS,NSE SME Emerge,SME (unclassified)
 NEPHROCARE.NS,NSE SME Emerge,SME (unclassified)
 DTL.NS,NSE SME Emerge,SME (unclassified)
-PCCL.NS,NSE SME Emerge,SME (unclassified)
 AKIKO.NS,NSE SME Emerge,SME (unclassified)
+PCCL.NS,NSE SME Emerge,SME (unclassified)
 DPEL.NS,NSE SME Emerge,SME (unclassified)
-SYLVANPLY.NS,NSE SME Emerge,SME (unclassified)
-MASON.NS,NSE SME Emerge,SME (unclassified)
-SPCL.NS,NSE SME Emerge,SME (unclassified)
 VISAMAN.NS,NSE SME Emerge,SME (unclassified)
+SYLVANPLY.NS,NSE SME Emerge,SME (unclassified)
+SPCL.NS,NSE SME Emerge,SME (unclassified)
+MASON.NS,NSE SME Emerge,SME (unclassified)
 MEDIORG.NS,NSE SME Emerge,SME (unclassified)
 WINNY.NS,NSE SME Emerge,SME (unclassified)
-DURLAX.NS,NSE SME Emerge,SME (unclassified)
 FALCONTECH.NS,NSE SME Emerge,SME (unclassified)
+DURLAX.NS,NSE SME Emerge,SME (unclassified)
 GPECO.NS,NSE SME Emerge,SME (unclassified)
 TBI.NS,NSE SME Emerge,SME (unclassified)
 AIMTRON.NS,NSE SME Emerge,SME (unclassified)
@@ -1040,8 +1042,8 @@ ZTECH.NS,NSE SME Emerge,SME (unclassified)
 BEACON.NS,NSE SME Emerge,SME (unclassified)
 VILAS.NS,NSE SME Emerge,SME (unclassified)
 GSMFOILS.NS,NSE SME Emerge,SME (unclassified)
-HOACFOODS.NS,NSE SME Emerge,SME (unclassified)
 RULKA.NS,NSE SME Emerge,SME (unclassified)
+HOACFOODS.NS,NSE SME Emerge,SME (unclassified)
 QUESTLAB.NS,NSE SME Emerge,SME (unclassified)
 IEML.NS,NSE SME Emerge,SME (unclassified)
 VERITAAS.NS,NSE SME Emerge,SME (unclassified)
@@ -1050,23 +1052,23 @@ MANDEEP.NS,NSE SME Emerge,SME (unclassified)
 PRLIND.NS,NSE SME Emerge,SME (unclassified)
 EMMIL.NS,NSE SME Emerge,SME (unclassified)
 SILKFLEX.NS,NSE SME Emerge,SME (unclassified)
-WINSOL.NS,NSE SME Emerge,SME (unclassified)
 REFRACTORY.NS,NSE SME Emerge,SME (unclassified)
+WINSOL.NS,NSE SME Emerge,SME (unclassified)
 SLONE.NS,NSE SME Emerge,SME (unclassified)
 RBS.NS,NSE SME Emerge,SME (unclassified)
 BIRDYS.NS,NSE SME Emerge,SME (unclassified)
-DCG.NS,NSE SME Emerge,SME (unclassified)
 TGL.NS,NSE SME Emerge,SME (unclassified)
+DCG.NS,NSE SME Emerge,SME (unclassified)
 DRSCARGO.NS,NSE SME Emerge,SME (unclassified)
 CGRAPHICS.NS,NSE SME Emerge,SME (unclassified)
 ALUWIND.NS,NSE SME Emerge,SME (unclassified)
-YASHOPTICS.NS,NSE SME Emerge,SME (unclassified)
 K2INFRA.NS,NSE SME Emerge,SME (unclassified)
+YASHOPTICS.NS,NSE SME Emerge,SME (unclassified)
 RADIOWALLA.NS,NSE SME Emerge,SME (unclassified)
 TAC.NS,NSE SME Emerge,SME (unclassified)
 TRUST.NS,NSE SME Emerge,SME (unclassified)
-BLUEPEBBLE.NS,NSE SME Emerge,SME (unclassified)
 ASPIRE.NS,NSE SME Emerge,SME (unclassified)
+BLUEPEBBLE.NS,NSE SME Emerge,SME (unclassified)
 NAMAN.NS,NSE SME Emerge,SME (unclassified)
 VISHWAS.NS,NSE SME Emerge,SME (unclassified)
 ENFUSE.NS,NSE SME Emerge,SME (unclassified)
@@ -1081,34 +1083,34 @@ MVKAGRO.NS,NSE SME Emerge,SME (unclassified)
 PURVFLEXI.NS,NSE SME Emerge,SME (unclassified)
 OWAIS.NS,NSE SME Emerge,SME (unclassified)
 SADHAV.NS,NSE SME Emerge,SME (unclassified)
-ZENITHDRUG.NS,NSE SME Emerge,SME (unclassified)
 DEEM.NS,NSE SME Emerge,SME (unclassified)
-INM.NS,NSE SME Emerge,SME (unclassified)
+ZENITHDRUG.NS,NSE SME Emerge,SME (unclassified)
 ESCONET.NS,NSE SME Emerge,SME (unclassified)
-TCL.NS,NSE SME Emerge,SME (unclassified)
 ATMASTCO.NS,NSE SME Emerge,SME (unclassified)
+INM.NS,NSE SME Emerge,SME (unclassified)
+TCL.NS,NSE SME Emerge,SME (unclassified)
 WTICAB.NS,NSE SME Emerge,SME (unclassified)
 POLYSIL.NS,NSE SME Emerge,SME (unclassified)
 ALPEXSOLAR.NS,NSE SME Emerge,SME (unclassified)
 ITALIANE.NS,NSE SME Emerge,SME (unclassified)
 BAWEJA.NS,NSE SME Emerge,SME (unclassified)
 MEGATHERM.NS,NSE SME Emerge,SME (unclassified)
-DELAPLEX.NS,NSE SME Emerge,SME (unclassified)
 DHTL.NS,NSE SME Emerge,SME (unclassified)
+DELAPLEX.NS,NSE SME Emerge,SME (unclassified)
 FONEBOX.NS,NSE SME Emerge,SME (unclassified)
-ADDICTIVE.NS,NSE SME Emerge,SME (unclassified)
 KONSTELEC.NS,NSE SME Emerge,SME (unclassified)
+ADDICTIVE.NS,NSE SME Emerge,SME (unclassified)
 MAXPOSURE.NS,NSE SME Emerge,SME (unclassified)
 APS.NS,NSE SME Emerge,SME (unclassified)
 IBLFL.NS,NSE SME Emerge,SME (unclassified)
 KLL.NS,NSE SME Emerge,SME (unclassified)
 KCEIL.NS,NSE SME Emerge,SME (unclassified)
-HRHNEXT.NS,NSE SME Emerge,SME (unclassified)
 AKANKSHA.NS,NSE SME Emerge,SME (unclassified)
+HRHNEXT.NS,NSE SME Emerge,SME (unclassified)
 SAIFL.NS,NSE SME Emerge,SME (unclassified)
-INDIFRA.NS,NSE SME Emerge,SME (unclassified)
-SUPREMEPWR.NS,NSE SME Emerge,SME (unclassified)
 TECHLABS.NS,NSE SME Emerge,SME (unclassified)
+SUPREMEPWR.NS,NSE SME Emerge,SME (unclassified)
+INDIFRA.NS,NSE SME Emerge,SME (unclassified)
 EFORCE.NS,NSE SME Emerge,SME (unclassified)
 SHREEOSFM.NS,NSE SME Emerge,SME (unclassified)
 SJLOGISTIC.NS,NSE SME Emerge,SME (unclassified)
@@ -1116,8 +1118,8 @@ PRESSTONIC.NS,NSE SME Emerge,SME (unclassified)
 ACCENTMIC.NS,NSE SME Emerge,SME (unclassified)
 GRAPHISAD.NS,NSE SME Emerge,SME (unclassified)
 SHEETAL.NS,NSE SME Emerge,SME (unclassified)
-CBAZAAR.NS,NSE SME Emerge,SME (unclassified)
 MARINETRAN.NS,NSE SME Emerge,SME (unclassified)
+CBAZAAR.NS,NSE SME Emerge,SME (unclassified)
 ROCKINGDCE.NS,NSE SME Emerge,SME (unclassified)
 SUNREST.NS,NSE SME Emerge,SME (unclassified)
 ROXHITECH.NS,NSE SME Emerge,SME (unclassified)
@@ -1126,8 +1128,8 @@ MICROPRO.NS,NSE SME Emerge,SME (unclassified)
 SARTELE.NS,NSE SME Emerge,SME (unclassified)
 MAITREYA.NS,NSE SME Emerge,SME (unclassified)
 TRANSTEEL.NS,NSE SME Emerge,SME (unclassified)
-SHANTHALA.NS,NSE SME Emerge,SME (unclassified)
 PARAGON.NS,NSE SME Emerge,SME (unclassified)
+SHANTHALA.NS,NSE SME Emerge,SME (unclassified)
 ONDOOR.NS,NSE SME Emerge,SME (unclassified)
 RCDL.NS,NSE SME Emerge,SME (unclassified)
 WOMANCART.NS,NSE SME Emerge,SME (unclassified)
@@ -1136,32 +1138,32 @@ COMMITTED.NS,NSE SME Emerge,SME (unclassified)
 PLADAINFO.NS,NSE SME Emerge,SME (unclassified)
 SCML.NS,NSE SME Emerge,SME (unclassified)
 KARNIKA.NS,NSE SME Emerge,SME (unclassified)
-OLIL.NS,NSE SME Emerge,SME (unclassified)
 CANARYS.NS,NSE SME Emerge,SME (unclassified)
 GOYALSALT.NS,NSE SME Emerge,SME (unclassified)
+OLIL.NS,NSE SME Emerge,SME (unclassified)
 VISHNUINFR.NS,NSE SME Emerge,SME (unclassified)
 KONTOR.NS,NSE SME Emerge,SME (unclassified)
-ARABIAN.NS,NSE SME Emerge,SME (unclassified)
 EFACTOR.NS,NSE SME Emerge,SME (unclassified)
+ARABIAN.NS,NSE SME Emerge,SME (unclassified)
 VINYAS.NS,NSE SME Emerge,SME (unclassified)
 NEWJAISA.NS,NSE SME Emerge,SME (unclassified)
 INSPIRE.NS,NSE SME Emerge,SME (unclassified)
-DIGIKORE.NS,NSE SME Emerge,SME (unclassified)
 MAL.NS,NSE SME Emerge,SME (unclassified)
+DIGIKORE.NS,NSE SME Emerge,SME (unclassified)
 SAAKSHI.NS,NSE SME Emerge,SME (unclassified)
 MASTER.NS,NSE SME Emerge,SME (unclassified)
 MARCO.NS,NSE SME Emerge,SME (unclassified)
-HIGREEN.NS,NSE SME Emerge,SME (unclassified)
 CELLECOR.NS,NSE SME Emerge,SME (unclassified)
+HIGREEN.NS,NSE SME Emerge,SME (unclassified)
 KODYTECH.NS,NSE SME Emerge,SME (unclassified)
-MADHUSUDAN.NS,NSE SME Emerge,SME (unclassified)
 VISDEM.NS,NSE SME Emerge,SME (unclassified)
+MADHUSUDAN.NS,NSE SME Emerge,SME (unclassified)
 HOLMARC.NS,NSE SME Emerge,SME (unclassified)
 CHAVDA.NS,NSE SME Emerge,SME (unclassified)
 UNIHEALTH.NS,NSE SME Emerge,SME (unclassified)
 JIWANRAM.NS,NSE SME Emerge,SME (unclassified)
-PRAMARA.NS,NSE SME Emerge,SME (unclassified)
 SAROJA.NS,NSE SME Emerge,SME (unclassified)
+PRAMARA.NS,NSE SME Emerge,SME (unclassified)
 BASILIC.NS,NSE SME Emerge,SME (unclassified)
 CPS.NS,NSE SME Emerge,SME (unclassified)
 MONOPHARMA.NS,NSE SME Emerge,SME (unclassified)
@@ -1170,22 +1172,22 @@ CLSL.NS,NSE SME Emerge,SME (unclassified)
 SSFL.NS,NSE SME Emerge,SME (unclassified)
 YUDIZ.NS,NSE SME Emerge,SME (unclassified)
 SANGANI.NS,NSE SME Emerge,SME (unclassified)
-ORIANA.NS,NSE SME Emerge,SME (unclassified)
 VINSYS.NS,NSE SME Emerge,SME (unclassified)
+ORIANA.NS,NSE SME Emerge,SME (unclassified)
 ZEAL.NS,NSE SME Emerge,SME (unclassified)
 SHRITECH.NS,NSE SME Emerge,SME (unclassified)
 YCCL.NS,NSE SME Emerge,SME (unclassified)
 SERVICE.NS,NSE SME Emerge,SME (unclassified)
 DRONE.NS,NSE SME Emerge,SME (unclassified)
-TRIDHYA.NS,NSE SME Emerge,SME (unclassified)
 SYNOPTICS.NS,NSE SME Emerge,SME (unclassified)
+TRIDHYA.NS,NSE SME Emerge,SME (unclassified)
 GLOBALPET.NS,NSE SME Emerge,SME (unclassified)
 PENTAGON.NS,NSE SME Emerge,SME (unclassified)
-GREENCHEF.NS,NSE SME Emerge,SME (unclassified)
 MAGSON.NS,NSE SME Emerge,SME (unclassified)
 ESFL.NS,NSE SME Emerge,SME (unclassified)
-AATMAJ.NS,NSE SME Emerge,SME (unclassified)
+GREENCHEF.NS,NSE SME Emerge,SME (unclassified)
 VILINBIO.NS,NSE SME Emerge,SME (unclassified)
+AATMAJ.NS,NSE SME Emerge,SME (unclassified)
 CELLPOINT.NS,NSE SME Emerge,SME (unclassified)
 SPECTSTM.NS,NSE SME Emerge,SME (unclassified)
 URBAN.NS,NSE SME Emerge,SME (unclassified)
@@ -1209,8 +1211,8 @@ NIRMAN.NS,NSE SME Emerge,SME (unclassified)
 QFIL.NS,NSE SME Emerge,SME (unclassified)
 VELS.NS,NSE SME Emerge,SME (unclassified)
 MCON.NS,NSE SME Emerge,SME (unclassified)
-SYSTANGO.NS,NSE SME Emerge,SME (unclassified)
 VERTEXPLUS.NS,NSE SME Emerge,SME (unclassified)
+SYSTANGO.NS,NSE SME Emerge,SME (unclassified)
 SRIVASAVI.NS,NSE SME Emerge,SME (unclassified)
 VIAZ.NS,NSE SME Emerge,SME (unclassified)
 AGARWALFT.NS,NSE SME Emerge,SME (unclassified)
@@ -1228,18 +1230,18 @@ ARIHANTACA.NS,NSE SME Emerge,SME (unclassified)
 UMA.NS,NSE SME Emerge,SME (unclassified)
 ALLETEC.NS,NSE SME Emerge,SME (unclassified)
 ARHAM.NS,NSE SME Emerge,SME (unclassified)
-BAHETI.NS,NSE SME Emerge,SME (unclassified)
 PRITIKA.NS,NSE SME Emerge,SME (unclassified)
+BAHETI.NS,NSE SME Emerge,SME (unclassified)
 AMIABLE.NS,NSE SME Emerge,SME (unclassified)
-IPSL.NS,NSE SME Emerge,SME (unclassified)
 RITEZONE.NS,NSE SME Emerge,SME (unclassified)
+IPSL.NS,NSE SME Emerge,SME (unclassified)
 PHANTOMFX.NS,NSE SME Emerge,SME (unclassified)
 FROG.NS,NSE SME Emerge,SME (unclassified)
 SWASTIK.NS,NSE SME Emerge,SME (unclassified)
 LLOYDS.NS,NSE SME Emerge,SME (unclassified)
 CMRSL.NS,NSE SME Emerge,SME (unclassified)
-KANDARP.NS,NSE SME Emerge,SME (unclassified)
 MAKS.NS,NSE SME Emerge,SME (unclassified)
+KANDARP.NS,NSE SME Emerge,SME (unclassified)
 ISHAN.NS,NSE SME Emerge,SME (unclassified)
 TAPIFRUIT.NS,NSE SME Emerge,SME (unclassified)
 SABAR.NS,NSE SME Emerge,SME (unclassified)
@@ -1252,8 +1254,8 @@ USASEEDS.NS,NSE SME Emerge,SME (unclassified)
 AGNI.NS,NSE SME Emerge,SME (unclassified)
 SKP.NS,NSE SME Emerge,SME (unclassified)
 KCK.NS,NSE SME Emerge,SME (unclassified)
-FIDEL.NS,NSE SME Emerge,SME (unclassified)
 RILINFRA.NS,NSE SME Emerge,SME (unclassified)
+FIDEL.NS,NSE SME Emerge,SME (unclassified)
 GSTL.NS,NSE SME Emerge,SME (unclassified)
 SONUINFRA.NS,NSE SME Emerge,SME (unclassified)
 PROPEQUITY.NS,NSE SME Emerge,SME (unclassified)
@@ -1268,8 +1270,8 @@ VIVO.NS,NSE SME Emerge,SME (unclassified)
 FOCE.NS,NSE SME Emerge,SME (unclassified)
 NIDAN.NS,NSE SME Emerge,SME (unclassified)
 DKEGL.NS,NSE SME Emerge,SME (unclassified)
-DESTINY.NS,NSE SME Emerge,SME (unclassified)
 DYNAMIC.NS,NSE SME Emerge,SME (unclassified)
+DESTINY.NS,NSE SME Emerge,SME (unclassified)
 BMETRICS.NS,NSE SME Emerge,SME (unclassified)
 JAINAM.NS,NSE SME Emerge,SME (unclassified)
 QUADPRO.NS,NSE SME Emerge,SME (unclassified)
@@ -1327,9 +1329,6 @@ PERFECT.NS,NSE SME Emerge,SME (unclassified)
 AHIMSA.NS,NSE SME Emerge,SME (unclassified)
 SHAIVAL.NS,NSE SME Emerge,SME (unclassified)
 EMKAYTOOLS.NS,NSE SME Emerge,SME (unclassified)
-TIMEX.NS,Watchlist,Unknown
 INDOSMC.BO,Watchlist,Unknown
-KISSHT.NS,Watchlist,Unknown
 ZELIO.BO,Watchlist,Unknown
 KSHINTL.NS,Watchlist,Unknown
-SHADOWFAX.NS,Watchlist,Unknown
